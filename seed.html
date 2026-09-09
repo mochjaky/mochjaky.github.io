@@ -36,22 +36,28 @@
                 // 2. UPDATE EXPERIENCES
                 const experiences = [
                     {
+                        company: "PT Metal Al-Hasil",
+                        role: "Full-Stack Web Developer",
+                        date: "2026",
+                        description: "Mengembangkan Sistem POS (Point of Sale) & engine kalkulator harga acuan logam LME (London Metal Exchange) real-time, perancangan arsitektur database relasional, refactor UI/UX responsif, serta manajemen data transaksi & stok."
+                    },
+                    {
                         company: "PT Jaka Satria Mandala Putra",
                         role: "Direktur Operasional",
-                        date: "2025 - Sekarang",
-                        description: "Mengelola sistem operasional perusahaan jasa keamanan, menyusun SOP, koordinasi langsung dengan klien (hotel, apartemen), serta melakukan evaluasi performa layanan."
+                        date: "2025",
+                        description: "Mengelola sistem operasional perusahaan jasa keamanan, menyusun SOP & sistem pembagian tugas personel, koordinasi langsung dengan klien (hotel, apartemen, perumahan), serta menangani laporan resmi, invoice, dan dokumen legal."
                     },
                     {
                         company: "Freelance",
                         role: "Web Developer",
-                        date: "2022 - Sekarang",
-                        description: "Mengembangkan berbagai sistem berbasis web (manajemen kos, e-commerce, sistem internal). Mendesain UI responsif dan menggunakan PHP Native, MySQL, HTML, CSS, JavaScript, Bootstrap."
+                        date: "2022 – Present",
+                        description: "Mengembangkan berbagai aplikasi & sistem berbasis web (manajemen kos, e-commerce, sistem internal), mendesain UI responsif & meningkatkan UX, serta koordinasi langsung dengan klien menggunakan PHP Native, MySQL, HTML, CSS, JavaScript, & Bootstrap."
                     },
                     {
                         company: "PT Bina Baru Mandiri",
                         role: "IT Consultant",
                         date: "2022",
-                        description: "Mengembangkan dan memelihara aplikasi berbasis web internal perusahaan. Melakukan analisis kebutuhan sistem, efisiensi operasional, dan troubleshooting."
+                        description: "Mengembangkan & memelihara aplikasi berbasis web internal perusahaan, melakukan analisis kebutuhan sistem & efisiensi operasional, troubleshooting infrastruktur digital, serta konsultasi keamanan IT."
                     }
                 ];
 
@@ -63,29 +69,92 @@
                 // 3. UPDATE PROJECTS
                 const projects = [
                     {
-                        title: "MetalHasil POS",
+                        title: "Sistem Jurnal Pengeluaran Web",
                         category: "system",
-                        description: "Web-Based Point of Sale System untuk manajemen transaksi dan laporan penjualan. Memiliki fitur manajemen produk dan responsive design.",
-                        technologies: ["PHP Native", "MySQL", "Bootstrap 5", "JavaScript"],
-                        imageUrl: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                        description: "Sistem informasi pencatatan jurnal pengeluaran & keuangan berbasis web dengan fitur RBAC, audit log, dan laporan otomatis.",
+                        technologies: ["PHP Native", "MySQL", "RBAC", "Bootstrap"],
+                        imageUrl: "assets/img/sistem_jurnal.png",
                         link: "#",
                         createdAt: new Date()
                     },
                     {
-                        title: "HRIS & Employee Management",
+                        title: "MetalHasil POS & Price Calculator",
                         category: "system",
-                        description: "Sistem manajemen pegawai dengan fitur manajemen jabatan, sistem presensi, shift kerja, dan laporan pegawai dengan status tracking.",
-                        technologies: ["PHP", "MySQL", "RBAC"],
-                        imageUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                        description: "Point of Sale (POS) dan engine kalkulator estimasi harga acuan logam LME (London Metal Exchange) real-time.",
+                        technologies: ["PHP", "MySQL", "LME Price Engine", "Bootstrap"],
+                        imageUrl: "assets/img/metalhasil_pos.png",
                         link: "#",
                         createdAt: new Date()
                     },
                     {
-                        title: "Document Workflow Approval",
+                        title: "TMS Fleet & Vehicle Management",
+                        category: "system",
+                        description: "Transport Management System (TMS) pengawasan armada kendaraan, integrasi GPS tracking real-time & geofencing.",
+                        technologies: ["PHP", "MySQL", "GPS API", "Geofencing Engine"],
+                        imageUrl: "assets/img/tms_fleet.png",
+                        link: "#",
+                        createdAt: new Date()
+                    },
+                    {
+                        title: "TMS Driver Companion App",
                         category: "web",
-                        description: "Sistem manajemen dokumen dengan multi-level approval, digital signing flow, dan audit trail logging system.",
-                        technologies: ["PHP", "MySQL", "Workflow Logic"],
-                        imageUrl: "https://images.unsplash.com/photo-1568044852337-9bcc3378fc3c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                        description: "Aplikasi mobile/web pendamping driver armada untuk pencatatan perjalanan, Proof of Delivery (POD), & rute pengiriman.",
+                        technologies: ["JavaScript PWA", "REST API", "Geolocation"],
+                        imageUrl: "assets/img/tms_fleet.png",
+                        link: "#",
+                        createdAt: new Date()
+                    },
+                    {
+                        title: "Smart Agriculture Drone System",
+                        category: "system",
+                        description: "Sistem pemantauan & manajemen operasional drone pertanian untuk penjadwalan penerbangan & analitik tanaman.",
+                        technologies: ["PHP MVC", "MySQL", "Custom Dashboard"],
+                        imageUrl: "assets/img/drone_agri.png",
+                        link: "#",
+                        createdAt: new Date()
+                    },
+                    {
+                        title: "OpenTrip Seribu Travel & E-Ticket",
+                        category: "web",
+                        description: "Platform booking paket wisata Open Trip Pulau Seribu terintegrasi Payment Gateway Midtrans & e-Tiket otomatis.",
+                        technologies: ["PHP", "MySQL", "Midtrans API", "Cron Reminder"],
+                        imageUrl: "assets/img/opentrip_seribu.png",
+                        link: "#",
+                        createdAt: new Date()
+                    },
+                    {
+                        title: "Kopieine Coffee UMKM ERP System",
+                        category: "system",
+                        description: "Sistem ERP terpadu kedai kopi mencakup penggajian, manajemen gudang, keuangan, kurir, & konsinyasi warung.",
+                        technologies: ["PHP", "MySQL", "Service Worker PWA", "Chart.js"],
+                        imageUrl: "assets/img/kopieine_erp.png",
+                        link: "#",
+                        createdAt: new Date()
+                    },
+                    {
+                        title: "Kemenag & PT JSMP Security System",
+                        category: "system",
+                        description: "Sistem informasi manajemen personel keamanan, pemantauan presensi harian, SOP pengamanan, & laporan cetak.",
+                        technologies: ["PHP", "MySQL", "PDF/Print Engine"],
+                        imageUrl: "assets/img/kemenag_security.png",
+                        link: "#",
+                        createdAt: new Date()
+                    },
+                    {
+                        title: "E-Commerce Marketplace Platform",
+                        category: "web",
+                        description: "Platform toko online & marketplace dengan fitur katalog produk, keranjang belanja, kalkulasi checkout, & invoice.",
+                        technologies: ["PHP Native", "MySQL", "Responsive UI"],
+                        imageUrl: "assets/img/opentrip_seribu.png",
+                        link: "#",
+                        createdAt: new Date()
+                    },
+                    {
+                        title: "Titan Quant Scalping Engine",
+                        category: "system",
+                        description: "Engine perdagangan kuantitatif otomatis berbasis Smart Money Concepts (SMC) & strategi scalping otomatis.",
+                        technologies: ["Quant Engine", "MQL / Algorithmic", "Financial Pipeline"],
+                        imageUrl: "assets/img/titan_quant.png",
                         link: "#",
                         createdAt: new Date()
                     }
