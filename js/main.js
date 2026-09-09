@@ -211,6 +211,22 @@ const defaultProjects = [
         technologies: ["HTML5", "CSS3", "JavaScript", "UI Design"],
         imageUrl: "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
         link: "#"
+    },
+    {
+        title: "SRD Data Record & Dynamic Pricing System",
+        category: "system",
+        description: "Sistem pencatatan rekam data operasional & engine kalkulator penentuan skema harga dinamis.",
+        technologies: ["PHP", "MySQL", "Dynamic Pricing", "Bootstrap"],
+        imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        link: "#"
+    },
+    {
+        title: "MKIECO Corporate Platform & Digital Ecosystem",
+        category: "web",
+        description: "Platform ekosistem digital korporat MKIECO untuk integrasi layanan bisnis & katalog produk.",
+        technologies: ["PHP", "MySQL", "REST API", "UI/UX Design"],
+        imageUrl: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        link: "#"
     }
 ];
 
