@@ -255,20 +255,37 @@ const defaultProjects = [
 
 const renderProjectCards = (projectsList) => {
     return projectsList.map(data => {
-        const techHtml = data.technologies.map(tech => `<span class="portfolio__tech">${tech.trim()}</span>`).join('');
+        const techHtml = Array.isArray(data.technologies) 
+            ? data.technologies.map(tech => `<span class="portfolio__tech">${tech.trim()}</span>`).join('')
+            : '';
+            
+        const hasLiveLink = data.link && data.link !== '#' && data.link.trim() !== '';
+        const titleHtml = hasLiveLink 
+            ? `<h3 class="portfolio__title"><a href="${data.link}" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration:none;">${data.title} <i class='bx bx-link-external' style="font-size:0.85em; opacity:0.75; color: var(--first-color);"></i></a></h3>`
+            : `<h3 class="portfolio__title">${data.title}</h3>`;
+
+        const liveBtnHtml = hasLiveLink 
+            ? `<a href="${data.link}" target="_blank" rel="noopener noreferrer" class="btn btn--small" style="padding: 0.4rem 0.9rem; font-size: var(--smaller-font-size); display: inline-flex; align-items: center; gap: 0.3rem;">
+                Visit Live Web <i class='bx bx-export'></i>
+               </a>`
+            : '';
+
         return `
-        <div class="portfolio__card ${data.category}">
+        <div class="portfolio__card ${data.category || 'system'}">
             <img src="${data.imageUrl}" alt="${data.title}" class="portfolio__img" onclick="openLightbox('${data.imageUrl}', '${data.title}')" title="Click to view screenshot">
             <div class="portfolio__data">
-                <span class="portfolio__category">${data.category.toUpperCase()}</span>
-                <h3 class="portfolio__title">${data.title}</h3>
+                <span class="portfolio__category">${data.category ? data.category.toUpperCase() : 'PROJECT'}</span>
+                ${titleHtml}
                 <p class="portfolio__description">${data.description}</p>
                 <div class="portfolio__stack">
                     ${techHtml}
                 </div>
-                <button class="portfolio__link" onclick="openLightbox('${data.imageUrl}', '${data.title}')" style="background:none; border:none; color:var(--first-color); cursor:pointer; padding:0; font-size:inherit;">
-                    Preview Screenshot <i class='bx bx-search-alt'></i>
-                </button>
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-top: 1.25rem; flex-wrap: wrap;">
+                    <button class="portfolio__link" onclick="openLightbox('${data.imageUrl}', '${data.title}')" style="background:none; border:none; color:var(--first-color); cursor:pointer; padding:0; font-size: var(--small-font-size); display: inline-flex; align-items: center; gap: 0.3rem;">
+                        Preview Screenshot <i class='bx bx-search-alt'></i>
+                    </button>
+                    ${liveBtnHtml}
+                </div>
             </div>
         </div>
         `;

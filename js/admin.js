@@ -467,7 +467,7 @@ window.seedDefaultData = async () => {
                 description: "Point of Sale (POS) dan engine kalkulator estimasi harga acuan logam LME (London Metal Exchange) real-time.",
                 technologies: ["PHP", "MySQL", "LME Price Engine", "Bootstrap"],
                 imageUrl: "assets/img/metalhasil_pos.png",
-                link: "#",
+                link: "https://metalhasil.my.id/",
                 createdAt: new Date()
             },
             {
