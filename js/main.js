@@ -65,7 +65,7 @@ const defaultProjects = [
         category: "system",
         description: "Sistem informasi pencatatan jurnal pengeluaran & keuangan berbasis web dengan fitur RBAC, audit log, dan laporan otomatis.",
         technologies: ["PHP Native", "MySQL", "RBAC", "Bootstrap"],
-        imageUrl: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        imageUrl: "assets/img/sistem_jurnal.png",
         link: "#"
     },
     {
@@ -73,7 +73,7 @@ const defaultProjects = [
         category: "system",
         description: "Point of Sale (POS) dan engine kalkulator estimasi harga acuan logam LME (London Metal Exchange) real-time.",
         technologies: ["PHP", "MySQL", "LME Price Engine", "Bootstrap"],
-        imageUrl: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        imageUrl: "assets/img/metalhasil_pos.png",
         link: "#"
     },
     {
@@ -81,7 +81,7 @@ const defaultProjects = [
         category: "system",
         description: "Transport Management System (TMS) pengawasan armada kendaraan, integrasi GPS tracking real-time & geofencing.",
         technologies: ["PHP", "MySQL", "GPS API", "Geofencing Engine"],
-        imageUrl: "https://images.unsplash.com/photo-1519003722824-194d4455a60c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        imageUrl: "assets/img/tms_fleet.png",
         link: "#"
     },
     {
@@ -89,7 +89,7 @@ const defaultProjects = [
         category: "web",
         description: "Aplikasi mobile/web pendamping driver armada untuk pencatatan perjalanan, Proof of Delivery (POD), & rute pengiriman.",
         technologies: ["JavaScript PWA", "REST API", "Geolocation"],
-        imageUrl: "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        imageUrl: "assets/img/tms_fleet.png",
         link: "#"
     },
     {
@@ -97,7 +97,7 @@ const defaultProjects = [
         category: "system",
         description: "Sistem pemantauan & manajemen operasional drone pertanian untuk penjadwalan penerbangan & analitik tanaman.",
         technologies: ["PHP MVC", "MySQL", "Custom Dashboard"],
-        imageUrl: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        imageUrl: "assets/img/drone_agri.png",
         link: "#"
     },
     {
@@ -105,7 +105,7 @@ const defaultProjects = [
         category: "web",
         description: "Platform booking paket wisata Open Trip Pulau Seribu terintegrasi Payment Gateway Midtrans & e-Tiket otomatis.",
         technologies: ["PHP", "MySQL", "Midtrans API", "Cron Reminder"],
-        imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        imageUrl: "assets/img/opentrip_seribu.png",
         link: "#"
     },
     {
@@ -113,7 +113,7 @@ const defaultProjects = [
         category: "system",
         description: "Sistem ERP terpadu kedai kopi mencakup penggajian, manajemen gudang, keuangan, kurir, & konsinyasi warung.",
         technologies: ["PHP", "MySQL", "Service Worker PWA", "Chart.js"],
-        imageUrl: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        imageUrl: "assets/img/kopieine_erp.png",
         link: "#"
     },
     {
@@ -121,7 +121,7 @@ const defaultProjects = [
         category: "system",
         description: "Sistem informasi manajemen personel keamanan, pemantauan presensi harian, SOP pengamanan, & laporan cetak.",
         technologies: ["PHP", "MySQL", "PDF/Print Engine"],
-        imageUrl: "https://images.unsplash.com/photo-1450133064473-71024230f91b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        imageUrl: "assets/img/kemenag_security.png",
         link: "#"
     },
     {
@@ -129,7 +129,7 @@ const defaultProjects = [
         category: "web",
         description: "Platform toko online & marketplace dengan fitur katalog produk, keranjang belanja, kalkulasi checkout, & invoice.",
         technologies: ["PHP Native", "MySQL", "Responsive UI"],
-        imageUrl: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        imageUrl: "assets/img/opentrip_seribu.png",
         link: "#"
     },
     {
@@ -137,7 +137,7 @@ const defaultProjects = [
         category: "web",
         description: "Portal rekrutmen pegawai & penyerapan tenaga kerja (ABK) dengan seleksi berkas online & dashboard HR.",
         technologies: ["PHP", "MySQL", "Document Uploader"],
-        imageUrl: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        imageUrl: "assets/img/kemenag_security.png",
         link: "#"
     },
     {
@@ -145,7 +145,7 @@ const defaultProjects = [
         category: "system",
         description: "Progressive Web App (PWA) untuk pemantauan status jaringan & infrastruktur sinyal secara real-time.",
         technologies: ["PWA", "Service Worker", "JavaScript", "REST API"],
-        imageUrl: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        imageUrl: "assets/img/tms_fleet.png",
         link: "#"
     },
     {
@@ -153,7 +153,7 @@ const defaultProjects = [
         category: "system",
         description: "Engine perdagangan kuantitatif otomatis berbasis Smart Money Concepts (SMC) & strategi scalping otomatis.",
         technologies: ["Quant Engine", "MQL / Algorithmic", "Financial Pipeline"],
-        imageUrl: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        imageUrl: "assets/img/titan_quant.png",
         link: "#"
     },
     {
@@ -161,7 +161,7 @@ const defaultProjects = [
         category: "system",
         description: "Sistem manajemen rantai pasok & pergudangan untuk pemantauan alur pergerakan barang & inventaris.",
         technologies: ["PHP", "MySQL", "Modular Architecture"],
-        imageUrl: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        imageUrl: "assets/img/kopieine_erp.png",
         link: "#"
     },
     {
@@ -169,7 +169,7 @@ const defaultProjects = [
         category: "system",
         description: "Sistem penggajian karyawan dengan kalkulasi tunjangan, potongan gaji, slip gaji otomatis, & rekap bulanan.",
         technologies: ["PHP", "MySQL", "Session Auth"],
-        imageUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        imageUrl: "assets/img/sistem_jurnal.png",
         link: "#"
     },
     {
@@ -177,7 +177,7 @@ const defaultProjects = [
         category: "system",
         description: "Engine pengiriman pesan & broadcast otomatis menggunakan background worker script & antrean tugas.",
         technologies: ["PHP", "Worker Script", "Database Queue"],
-        imageUrl: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        imageUrl: "assets/img/metalhasil_pos.png",
         link: "#"
     },
     {
@@ -185,7 +185,7 @@ const defaultProjects = [
         category: "web",
         description: "Portal web media & informasi sejarah sepak bola lengkap dengan galeri konten, berita, & arsip pertandingan.",
         technologies: ["PHP", "MySQL", "Custom CMS"],
-        imageUrl: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        imageUrl: "assets/img/opentrip_seribu.png",
         link: "#"
     },
     {
@@ -193,7 +193,7 @@ const defaultProjects = [
         category: "design",
         description: "Website profil perusahaan interaktif dengan desain UI/UX responsif modern untuk branding korporat.",
         technologies: ["HTML5", "CSS3", "JavaScript", "UI/UX Design"],
-        imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        imageUrl: "assets/img/kopieine_erp.png",
         link: "#"
     },
     {
@@ -201,7 +201,7 @@ const defaultProjects = [
         category: "web",
         description: "Modul checkout dan sistem integrasi payment gateway mandiri untuk kecepatan transaksi online.",
         technologies: ["PHP", "Payment Gateway API", "JavaScript"],
-        imageUrl: "https://images.unsplash.com/photo-1556740758-90de374c12ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        imageUrl: "assets/img/opentrip_seribu.png",
         link: "#"
     },
     {
@@ -209,7 +209,7 @@ const defaultProjects = [
         category: "design",
         description: "Portal web branding publik perusahaan jasa keamanan dengan layout elegan & responsif.",
         technologies: ["HTML5", "CSS3", "JavaScript", "UI Design"],
-        imageUrl: "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        imageUrl: "assets/img/kemenag_security.png",
         link: "#"
     },
     {
@@ -217,7 +217,7 @@ const defaultProjects = [
         category: "system",
         description: "Sistem pencatatan rekam data operasional & engine kalkulator penentuan skema harga dinamis.",
         technologies: ["PHP", "MySQL", "Dynamic Pricing", "Bootstrap"],
-        imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        imageUrl: "assets/img/sistem_jurnal.png",
         link: "#"
     },
     {
@@ -225,7 +225,7 @@ const defaultProjects = [
         category: "web",
         description: "Platform ekosistem digital korporat MKIECO untuk integrasi layanan bisnis & katalog produk.",
         technologies: ["PHP", "MySQL", "REST API", "UI/UX Design"],
-        imageUrl: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        imageUrl: "assets/img/kopieine_erp.png",
         link: "#"
     }
 ];
@@ -235,7 +235,7 @@ const renderProjectCards = (projectsList) => {
         const techHtml = data.technologies.map(tech => `<span class="portfolio__tech">${tech.trim()}</span>`).join('');
         return `
         <div class="portfolio__card ${data.category}">
-            <img src="${data.imageUrl}" alt="${data.title}" class="portfolio__img">
+            <img src="${data.imageUrl}" alt="${data.title}" class="portfolio__img" onclick="openLightbox('${data.imageUrl}', '${data.title}')" title="Click to view screenshot">
             <div class="portfolio__data">
                 <span class="portfolio__category">${data.category.toUpperCase()}</span>
                 <h3 class="portfolio__title">${data.title}</h3>
@@ -243,9 +243,9 @@ const renderProjectCards = (projectsList) => {
                 <div class="portfolio__stack">
                     ${techHtml}
                 </div>
-                <a href="${data.link}" target="_blank" class="portfolio__link">
-                    View Project <i class='bx bx-link-external'></i>
-                </a>
+                <button class="portfolio__link" onclick="openLightbox('${data.imageUrl}', '${data.title}')" style="background:none; border:none; color:var(--first-color); cursor:pointer; padding:0; font-size:inherit;">
+                    Preview Screenshot <i class='bx bx-search-alt'></i>
+                </button>
             </div>
         </div>
         `;
@@ -388,9 +388,39 @@ const loadExperience = async () => {
     }
 };
 
+/* =============== LIGHTBOX MODAL HANDLERS =============== */
+window.openLightbox = (imgUrl, title) => {
+    const modal = document.getElementById('lightbox-modal');
+    const modalImg = document.getElementById('lightbox-img');
+    const caption = document.getElementById('lightbox-caption');
+    
+    if (modal && modalImg && caption) {
+        modalImg.src = imgUrl;
+        caption.innerText = title;
+        modal.classList.add('active');
+    }
+};
+
+const closeLightbox = () => {
+    const modal = document.getElementById('lightbox-modal');
+    if (modal) {
+        modal.classList.remove('active');
+    }
+};
+
 // Initialize
 window.addEventListener('DOMContentLoaded', () => {
     loadProfile();
     loadProjects();
     loadExperience();
+
+    const closeBtn = document.getElementById('lightbox-close');
+    const modal = document.getElementById('lightbox-modal');
+    
+    if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeLightbox();
+        });
+    }
 });
