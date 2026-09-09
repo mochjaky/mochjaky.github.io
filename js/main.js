@@ -29,11 +29,34 @@ navLink.forEach(n => n.addEventListener('click', linkAction))
 
 /* =============== CHANGE BACKGROUND HEADER =============== */
 const scrollHeader = () =>{
-    const header = document.getElementById('header')
-    this.scrollY >= 50 ? header.classList.add('scroll-header') 
-                       : header.classList.remove('scroll-header')
+    const header = document.getElementById('header');
+    window.scrollY >= 50 ? header.classList.add('scroll-header') 
+                         : header.classList.remove('scroll-header');
 }
-window.addEventListener('scroll', scrollHeader)
+window.addEventListener('scroll', scrollHeader);
+
+/* =============== SCROLL SECTIONS ACTIVE LINK =============== */
+const sections = document.querySelectorAll('section[id]');
+
+const scrollActive = () => {
+    const scrollY = window.pageYOffset;
+
+    sections.forEach(current => {
+        const sectionHeight = current.offsetHeight,
+              sectionTop = current.offsetTop - 120,
+              sectionId = current.getAttribute('id'),
+              sectionsClass = document.querySelector('.nav__menu a[href*=' + sectionId + ']');
+
+        if(sectionsClass) {
+            if(scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                sectionsClass.classList.add('active-link');
+            } else {
+                sectionsClass.classList.remove('active-link');
+            }
+        }
+    });
+};
+window.addEventListener('scroll', scrollActive);
 
 /* =============== PORTFOLIO FILTER =============== */
 const filterItems = document.querySelectorAll('.portfolio__item');
