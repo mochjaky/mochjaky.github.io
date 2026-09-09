@@ -18,14 +18,25 @@ if(navClose){
     })
 }
 
-/* =============== REMOVE MENU MOBILE =============== */
-const navLink = document.querySelectorAll('.nav__link')
+/* =============== REMOVE MENU MOBILE ON CLICK OR OUTSIDE =============== */
+const navLinks = document.querySelectorAll('.nav__link');
 
-const linkAction = () =>{
-    const navMenu = document.getElementById('nav-menu')
-    navMenu.classList.remove('show-menu')
-}
-navLink.forEach(n => n.addEventListener('click', linkAction))
+const closeMenu = () => {
+    const navMenu = document.getElementById('nav-menu');
+    if (navMenu) navMenu.classList.remove('show-menu');
+};
+
+navLinks.forEach(n => n.addEventListener('click', closeMenu));
+
+document.addEventListener('click', (e) => {
+    const navMenu = document.getElementById('nav-menu');
+    const navToggle = document.getElementById('nav-toggle');
+    if (navMenu && navMenu.classList.contains('show-menu')) {
+        if (!navMenu.contains(e.target) && navToggle && !navToggle.contains(e.target)) {
+            closeMenu();
+        }
+    }
+});
 
 /* =============== CHANGE BACKGROUND HEADER =============== */
 const scrollHeader = () =>{
