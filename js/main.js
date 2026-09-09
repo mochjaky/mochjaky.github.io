@@ -323,7 +323,41 @@ const loadProfile = async () => {
     }
 };
 
-/* =============== LOAD EXPERIENCE FROM FIREBASE =============== */
+/* =============== LOAD EXPERIENCE =============== */
+const defaultExperiences = [
+    {
+        company: "PT Jaka Satria Mandala Putra",
+        role: "Direktur Operasional",
+        date: "2025",
+        description: "Mengelola sistem operasional perusahaan jasa keamanan, menyusun SOP & sistem pembagian tugas personel, koordinasi langsung dengan klien (hotel, apartemen, perumahan), serta menangani laporan resmi, invoice, dan dokumen legal."
+    },
+    {
+        company: "Freelance",
+        role: "Web Developer",
+        date: "2022 – Present",
+        description: "Mengembangkan berbagai aplikasi & sistem berbasis web (manajemen kos, e-commerce, sistem internal), mendesain UI responsif & meningkatkan UX, serta koordinasi langsung dengan klien menggunakan PHP Native, MySQL, HTML, CSS, JavaScript, & Bootstrap."
+    },
+    {
+        company: "PT Bina Baru Mandiri",
+        role: "IT Consultant",
+        date: "2022",
+        description: "Mengembangkan & memelihara aplikasi berbasis web internal perusahaan, melakukan analisis kebutuhan sistem & efisiensi operasional, troubleshooting infrastruktur digital, serta konsultasi keamanan IT."
+    }
+];
+
+const renderExperienceCards = (expList) => {
+    return expList.map(exp => `
+        <div class="experience__card">
+            <h3 class="experience__company">${exp.company}</h3>
+            <span class="experience__role">${exp.role}</span>
+            <div class="experience__date">
+                <i class='bx bx-calendar'></i> ${exp.date}
+            </div>
+            <p class="experience__desc">${exp.description}</p>
+        </div>
+    `).join('');
+};
+
 const loadExperience = async () => {
     const experienceContainer = document.getElementById('experience-container');
     
@@ -332,55 +366,19 @@ const loadExperience = async () => {
         const querySnapshot = await getDocs(q);
         
         if (querySnapshot.empty) {
-            experienceContainer.innerHTML = '<p style="text-align:center; width:100%;">No experiences found. Add some from the Admin Panel.</p>';
+            experienceContainer.innerHTML = renderExperienceCards(defaultExperiences);
             return;
         }
 
-        let html = '';
+        let expList = [];
         querySnapshot.forEach((doc) => {
-            const exp = doc.data();
-            html += `
-            <div class="experience__card">
-                <h3 class="experience__company">${exp.company}</h3>
-                <span class="experience__role">${exp.role}</span>
-                <div class="experience__date">
-                    <i class='bx bx-calendar'></i> ${exp.date}
-                </div>
-                <p class="experience__desc">${exp.description}</p>
-            </div>
-            `;
+            expList.push(doc.data());
         });
-        experienceContainer.innerHTML = html;
+        experienceContainer.innerHTML = renderExperienceCards(expList);
         
     } catch (error) {
-        console.error("Error loading experiences:", error);
-        // Fallback demo data
-        experienceContainer.innerHTML = `
-            <div class="experience__card">
-                <h3 class="experience__company">PT Jaka Satria Mandala Putra</h3>
-                <span class="experience__role">Direktur Operasional</span>
-                <div class="experience__date">
-                    <i class='bx bx-calendar'></i> 2025 - Present
-                </div>
-                <p class="experience__desc">Mengelola sistem operasional perusahaan jasa keamanan, menyusun SOP, dan koordinasi langsung dengan klien.</p>
-            </div>
-            <div class="experience__card">
-                <h3 class="experience__company">Freelance</h3>
-                <span class="experience__role">Web Developer</span>
-                <div class="experience__date">
-                    <i class='bx bx-calendar'></i> 2022 - Present
-                </div>
-                <p class="experience__desc">Mengembangkan sistem berbasis web (manajemen kos, e-commerce, sistem internal). Mendesain UI responsif dengan PHP Native, MySQL, HTML, CSS, JavaScript, Bootstrap.</p>
-            </div>
-            <div class="experience__card">
-                <h3 class="experience__company">PT Bina Baru Mandiri</h3>
-                <span class="experience__role">IT Consultant</span>
-                <div class="experience__date">
-                    <i class='bx bx-calendar'></i> 2022
-                </div>
-                <p class="experience__desc">Mengembangkan dan memelihara aplikasi berbasis web internal perusahaan, serta melakukan analisis kebutuhan sistem.</p>
-            </div>
-        `;
+        console.log("Loading local experience data:", error);
+        experienceContainer.innerHTML = renderExperienceCards(defaultExperiences);
     }
 };
 
