@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Auto-Fill CV Data</title>
+    <style>
+        body { font-family: sans-serif; padding: 2rem; background: #0a0a0f; color: #fff; text-align: center;}
+        .btn { background: #4f46e5; color: white; padding: 1rem 2rem; border: none; border-radius: 8px; cursor: pointer; font-size: 1.2rem;}
+        #status { margin-top: 2rem; color: #10b981; }
+    </style>
+</head>
+<body>
+    <h1>Auto-Fill Database dari CV Anda</h1>
+    <p>Klik tombol di bawah ini untuk memasukkan otomatis data dari file PDF CV Anda ke dalam Database Firebase.</p>
+    <button class="btn" id="btn-seed">Mulai Import Data CV</button>
+    <h3 id="status"></h3>
+
+    <script type="module">
+        import { db } from './js/firebase-config.js';
+        import { collection, addDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        document.getElementById('btn-seed').addEventListener('click', async () => {
+            const status = document.getElementById('status');
+            status.innerText = "Memproses...";
+            
+            try {
+                // 1. UPDATE PROFILE
+                await setDoc(doc(db, "settings", "profile"), {
+                    name: "Moch Jaky Alfiyansyah",
+                    roles: ["Full-Stack Web Developer", "IT Consultant", "UI/UX Designer"],
+                    description: "Full-Stack Web Application Developer dengan pengalaman ±3 tahun dalam membangun sistem berbasis web untuk kebutuhan bisnis nyata (POS, HRIS, Marketplace, Corporate Website). Berpengalaman dalam merancang arsitektur database relasional, sistem multi-role, serta pengembangan aplikasi end-to-end.",
+                    imageUrl: "assets/4x6.jpg.jpeg", // Menggunakan foto lokal yang ada di folder
+                    yearsOfExperience: "3"
+                });
+
+                // 2. UPDATE EXPERIENCES
+                const experiences = [
+                    {
+                        company: "PT Jaka Satria Mandala Putra",
+                        role: "Direktur Operasional",
+                        date: "2025 - Sekarang",
+                        description: "Mengelola sistem operasional perusahaan jasa keamanan, menyusun SOP, koordinasi langsung dengan klien (hotel, apartemen), serta melakukan evaluasi performa layanan."
+                    },
+                    {
+                        company: "Freelance",
+                        role: "Web Developer",
+                        date: "2022 - Sekarang",
+                        description: "Mengembangkan berbagai sistem berbasis web (manajemen kos, e-commerce, sistem internal). Mendesain UI responsif dan menggunakan PHP Native, MySQL, HTML, CSS, JavaScript, Bootstrap."
+                    },
+                    {
+                        company: "PT Bina Baru Mandiri",
+                        role: "IT Consultant",
+                        date: "2022",
+                        description: "Mengembangkan dan memelihara aplikasi berbasis web internal perusahaan. Melakukan analisis kebutuhan sistem, efisiensi operasional, dan troubleshooting."
+                    }
+                ];
+
+                for (let exp of experiences) {
+                    exp.createdAt = new Date();
+                    await addDoc(collection(db, "experiences"), exp);
+                }
+
+                // 3. UPDATE PROJECTS
+                const projects = [
+                    {
+                        title: "MetalHasil POS",
+                        category: "system",
+                        description: "Web-Based Point of Sale System untuk manajemen transaksi dan laporan penjualan. Memiliki fitur manajemen produk dan responsive design.",
+                        technologies: ["PHP Native", "MySQL", "Bootstrap 5", "JavaScript"],
+                        imageUrl: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                        link: "#",
+                        createdAt: new Date()
+                    },
+                    {
+                        title: "HRIS & Employee Management",
+                        category: "system",
+                        description: "Sistem manajemen pegawai dengan fitur manajemen jabatan, sistem presensi, shift kerja, dan laporan pegawai dengan status tracking.",
+                        technologies: ["PHP", "MySQL", "RBAC"],
+                        imageUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                        link: "#",
+                        createdAt: new Date()
+                    },
+                    {
+                        title: "Document Workflow Approval",
+                        category: "web",
+                        description: "Sistem manajemen dokumen dengan multi-level approval, digital signing flow, dan audit trail logging system.",
+                        technologies: ["PHP", "MySQL", "Workflow Logic"],
+                        imageUrl: "https://images.unsplash.com/photo-1568044852337-9bcc3378fc3c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                        link: "#",
+                        createdAt: new Date()
+                    }
+                ];
+
+                for (let proj of projects) {
+                    await addDoc(collection(db, "projects"), proj);
+                }
+
+                status.innerText = "Selesai! Semua data dari CV Anda sudah berhasil dimasukkan ke Database.";
+            } catch (error) {
+                console.error(error);
+                status.innerText = "Terjadi kesalahan: " + error.message;
+                status.style.color = "#ef4444";
+            }
+        });
+    </script>
+</body>
+</html>
