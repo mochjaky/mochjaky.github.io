@@ -347,17 +347,21 @@ const loadAdminProfile = async () => {
 
         if (docSnap.exists()) {
             const data = docSnap.data();
+            let imgUrl = data.imageUrl || "4x6.jpg.jpeg";
+            if (imgUrl === "assets/4x6.jpg.jpeg") imgUrl = "4x6.jpg.jpeg";
+
             document.getElementById('prof-name').value = data.name || "Moch Jaky Alfiyansyah";
             document.getElementById('prof-roles').value = (data.roles || ["IT Consultant", "Web Developer"]).join(', ');
             document.getElementById('prof-desc').value = data.description || "";
-            document.getElementById('prof-img').value = data.imageUrl || "";
+            document.getElementById('prof-img').value = imgUrl;
             document.getElementById('prof-years').value = data.yearsOfExperience || "3";
 
             const profPreviewImg = document.getElementById('prof-img-preview');
             const profPreviewContainer = document.getElementById('prof-img-preview-container');
-            if (profPreviewImg && profPreviewContainer && data.imageUrl) {
-                profPreviewImg.src = data.imageUrl;
+            if (profPreviewImg && profPreviewContainer) {
+                profPreviewImg.src = imgUrl;
                 profPreviewContainer.style.display = 'block';
+                profPreviewImg.onerror = () => { profPreviewImg.src = '4x6.jpg.jpeg'; };
             }
         }
     } catch (error) {
@@ -406,7 +410,7 @@ window.seedDefaultData = async () => {
             name: "Moch Jaky Alfiyansyah",
             roles: ["Full-Stack Web Developer", "IT Consultant", "UI/UX Designer"],
             description: "Full-Stack Web Application Developer dengan pengalaman ±3 tahun dalam membangun sistem berbasis web untuk kebutuhan bisnis nyata (POS, HRIS, Marketplace, Corporate Website). Berpengalaman dalam merancang arsitektur database relasional, sistem multi-role, serta pengembangan aplikasi end-to-end.",
-            imageUrl: "assets/4x6.jpg.jpeg",
+            imageUrl: "4x6.jpg.jpeg",
             yearsOfExperience: "3"
         });
 

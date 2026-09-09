@@ -328,7 +328,13 @@ const loadProfile = async () => {
             
             // Update Image
             if(data.imageUrl) {
-                document.getElementById('profile-img').src = data.imageUrl;
+                let imgUrl = data.imageUrl;
+                if(imgUrl === 'assets/4x6.jpg.jpeg') imgUrl = '4x6.jpg.jpeg';
+                const profileImg = document.getElementById('profile-img');
+                if(profileImg) {
+                    profileImg.src = imgUrl;
+                    profileImg.onerror = () => { profileImg.src = '4x6.jpg.jpeg'; };
+                }
             }
             
             // Update Experience Years (the 2nd stat item)
