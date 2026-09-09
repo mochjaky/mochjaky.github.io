@@ -36,6 +36,85 @@ tabBtns.forEach(btn => {
     });
 });
 
+/* ================= IMAGE UPLOAD UTILITIES ================= */
+const compressImage = (file, maxWidth = 900, maxHeight = 900, quality = 0.8) => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (e) => {
+            const img = new Image();
+            img.src = e.target.result;
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                let width = img.width;
+                let height = img.height;
+
+                if (width > height) {
+                    if (width > maxWidth) {
+                        height = Math.round((height * maxWidth) / width);
+                        width = maxWidth;
+                    }
+                } else {
+                    if (height > maxHeight) {
+                        width = Math.round((width * maxHeight) / height);
+                        height = maxHeight;
+                    }
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+
+                const dataUrl = canvas.toDataURL('image/jpeg', quality);
+                resolve(dataUrl);
+            };
+            img.onerror = (err) => reject(err);
+        };
+        reader.onerror = (err) => reject(err);
+    });
+};
+
+const setupImageUploader = (fileInputId, textInputId, previewContainerId, previewImgId) => {
+    const fileInput = document.getElementById(fileInputId);
+    const textInput = document.getElementById(textInputId);
+    const previewContainer = document.getElementById(previewContainerId);
+    const previewImg = document.getElementById(previewImgId);
+
+    if (fileInput) {
+        fileInput.addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                try {
+                    const compressedDataUrl = await compressImage(file);
+                    textInput.value = compressedDataUrl;
+                    previewImg.src = compressedDataUrl;
+                    previewContainer.style.display = 'block';
+                } catch (err) {
+                    console.error(err);
+                    alert("Gagal membaca file gambar!");
+                }
+            }
+        });
+    }
+
+    if (textInput) {
+        textInput.addEventListener('input', (e) => {
+            const val = e.target.value.trim();
+            if (val !== '') {
+                previewImg.src = val;
+                previewContainer.style.display = 'block';
+            } else {
+                previewContainer.style.display = 'none';
+            }
+        });
+    }
+};
+
+// Initialize uploaders
+setupImageUploader('project-img-file', 'project-img', 'project-img-preview-container', 'project-img-preview');
+setupImageUploader('prof-img-file', 'prof-img', 'prof-img-preview-container', 'prof-img-preview');
+
 /* ================= PROJECTS CRUD ================= */
 const projectForm = document.getElementById('project-form');
 const projectList = document.getElementById('project-list');
@@ -112,6 +191,13 @@ window.editProject = (id) => {
         document.getElementById('project-img').value = project.imageUrl;
         document.getElementById('project-link').value = project.link;
         
+        const previewImg = document.getElementById('project-img-preview');
+        const previewContainer = document.getElementById('project-img-preview-container');
+        if (previewImg && previewContainer && project.imageUrl) {
+            previewImg.src = project.imageUrl;
+            previewContainer.style.display = 'block';
+        }
+
         isEditingProject = true;
         document.getElementById('project-form-title').innerText = "Edit Project";
         document.getElementById('btn-project-submit').innerText = "Update Project";
@@ -131,6 +217,11 @@ document.getElementById('btn-project-cancel').addEventListener('click', () => re
 const resetProjectForm = () => {
     projectForm.reset();
     document.getElementById('project-id').value = "";
+    const fileInput = document.getElementById('project-img-file');
+    if (fileInput) fileInput.value = "";
+    const previewContainer = document.getElementById('project-img-preview-container');
+    if (previewContainer) previewContainer.style.display = "none";
+    
     isEditingProject = false;
     document.getElementById('project-form-title').innerText = "Add New Project";
     document.getElementById('btn-project-submit').innerText = "Save Project";
@@ -246,9 +337,16 @@ const loadAdminProfile = async () => {
             const data = docSnap.data();
             document.getElementById('prof-name').value = data.name || "Moch Jaky Alfiyansyah";
             document.getElementById('prof-roles').value = (data.roles || ["IT Consultant", "Web Developer"]).join(', ');
-            document.getElementById('prof-desc').value = data.description || "I specialize in creating modern web applications...";
-            document.getElementById('prof-img').value = data.imageUrl || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80";
+            document.getElementById('prof-desc').value = data.description || "";
+            document.getElementById('prof-img').value = data.imageUrl || "";
             document.getElementById('prof-years').value = data.yearsOfExperience || "3";
+
+            const profPreviewImg = document.getElementById('prof-img-preview');
+            const profPreviewContainer = document.getElementById('prof-img-preview-container');
+            if (profPreviewImg && profPreviewContainer && data.imageUrl) {
+                profPreviewImg.src = data.imageUrl;
+                profPreviewContainer.style.display = 'block';
+            }
         }
     } catch (error) {
         console.error("Error loading profile", error);
