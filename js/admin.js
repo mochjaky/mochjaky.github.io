@@ -172,7 +172,7 @@ projectForm.addEventListener('submit', async (e) => {
     
     try {
         if (isEditingProject && id) {
-            await updateDoc(doc(db, "projects", id), projectData);
+            await setDoc(doc(db, "projects", id), projectData, { merge: true });
             alert("Project updated!");
         } else {
             projectData.createdAt = new Date();
@@ -289,7 +289,7 @@ expForm.addEventListener('submit', async (e) => {
     
     try {
         if (isEditingExp && id) {
-            await updateDoc(doc(db, "experiences", id), expData);
+            await setDoc(doc(db, "experiences", id), expData, { merge: true });
             alert("Experience updated!");
         } else {
             expData.createdAt = new Date();
