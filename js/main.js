@@ -326,6 +326,12 @@ const loadProfile = async () => {
 /* =============== LOAD EXPERIENCE =============== */
 const defaultExperiences = [
     {
+        company: "PT Metal Al-Hasil",
+        role: "Full-Stack Web Developer",
+        date: "2026",
+        description: "Mengembangkan Sistem POS (Point of Sale) & engine kalkulator harga acuan logam LME (London Metal Exchange) real-time, perancangan arsitektur database relasional, refactor UI/UX responsif, serta manajemen data transaksi & stok."
+    },
+    {
         company: "PT Jaka Satria Mandala Putra",
         role: "Direktur Operasional",
         date: "2025",
