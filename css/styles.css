@@ -189,13 +189,16 @@ img {
   top: 0;
   left: 0;
   z-index: var(--z-fixed);
+  background: rgba(15, 16, 22, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--glass-border);
   transition: .4s;
 }
 
 .header.scroll-header {
-  background: rgba(10, 10, 15, 0.8);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--glass-border);
+  background: rgba(10, 10, 15, 0.95);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
 .nav {
@@ -211,6 +214,9 @@ img {
   font-size: var(--h3-font-size);
   font-weight: var(--font-bold);
   letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 .nav__logo span {
   color: var(--first-color);
@@ -254,14 +260,19 @@ img {
   color: var(--text-color);
   font-weight: var(--font-medium);
   transition: .3s;
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.5rem;
 }
 
 .nav__link:hover {
-  color: var(--first-color);
+  color: var(--title-color);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .active-link {
   color: var(--first-color);
+  background: rgba(99, 102, 241, 0.12);
+  border: 1px solid rgba(99, 102, 241, 0.25);
 }
 
 .nav__close {
@@ -276,10 +287,14 @@ img {
 }
 
 /* =============== HERO / HOME =============== */
-/* =============== HERO / HOME =============== */
+.home.section {
+  padding-top: calc(var(--header-height) + 1.25rem);
+  padding-bottom: 2rem;
+}
+
 .home__container {
-  padding-top: calc(var(--header-height) + 2rem);
-  row-gap: 3rem;
+  padding-top: 0;
+  row-gap: 2.5rem;
   align-items: center;
 }
 
@@ -957,7 +972,7 @@ img {
   .home__container {
     grid-template-columns: 1fr 1fr;
     align-items: center;
-    padding-top: calc(var(--header-height) + 2.5rem);
+    padding-top: 0;
   }
   .home__data {
     text-align: left;
