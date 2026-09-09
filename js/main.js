@@ -408,11 +408,55 @@ const closeLightbox = () => {
     }
 };
 
+/* =============== TYPEWRITER ROLE ANIMATION =============== */
+const initTypewriter = () => {
+    const typewriterEl = document.querySelector('.typewriter');
+    if (!typewriterEl) return;
+    
+    const roles = [
+        "Full-Stack Web Developer",
+        "UI/UX Designer",
+        "IT Consultant",
+        "Database & System Architect"
+    ];
+    let roleIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    
+    const type = () => {
+        const currentRole = roles[roleIndex];
+        
+        if (isDeleting) {
+            typewriterEl.innerText = currentRole.substring(0, charIndex - 1);
+            charIndex--;
+        } else {
+            typewriterEl.innerText = currentRole.substring(0, charIndex + 1);
+            charIndex++;
+        }
+        
+        let typeSpeed = isDeleting ? 40 : 80;
+        
+        if (!isDeleting && charIndex === currentRole.length) {
+            typeSpeed = 2200; // Pause at end
+            isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            roleIndex = (roleIndex + 1) % roles.length;
+            typeSpeed = 400;
+        }
+        
+        setTimeout(type, typeSpeed);
+    };
+    
+    type();
+};
+
 // Initialize
 window.addEventListener('DOMContentLoaded', () => {
     loadProfile();
     loadProjects();
     loadExperience();
+    initTypewriter();
 
     const closeBtn = document.getElementById('lightbox-close');
     const modal = document.getElementById('lightbox-modal');
