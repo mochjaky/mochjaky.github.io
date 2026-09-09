@@ -448,16 +448,19 @@ const initTypewriter = () => {
     
     const type = () => {
         const currentRole = roles[roleIndex];
+        let currentText = "";
         
         if (isDeleting) {
-            typewriterEl.innerText = currentRole.substring(0, charIndex - 1);
+            currentText = currentRole.substring(0, charIndex - 1);
             charIndex--;
         } else {
-            typewriterEl.innerText = currentRole.substring(0, charIndex + 1);
+            currentText = currentRole.substring(0, charIndex + 1);
             charIndex++;
         }
         
-        let typeSpeed = isDeleting ? 40 : 80;
+        typewriterEl.textContent = currentText || '\u00A0';
+        
+        let typeSpeed = isDeleting ? 35 : 70;
         
         if (!isDeleting && charIndex === currentRole.length) {
             typeSpeed = 2200; // Pause at end
@@ -465,7 +468,7 @@ const initTypewriter = () => {
         } else if (isDeleting && charIndex === 0) {
             isDeleting = false;
             roleIndex = (roleIndex + 1) % roles.length;
-            typeSpeed = 400;
+            typeSpeed = 350;
         }
         
         setTimeout(type, typeSpeed);
