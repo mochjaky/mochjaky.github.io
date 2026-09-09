@@ -1102,17 +1102,47 @@ img {
 
 .form-input, .form-textarea, .form-select {
   width: 100%;
-  background: rgba(0,0,0,0.2);
+  background: rgba(0,0,0,0.3);
   border: 1px solid var(--glass-border);
-  color: var(--text-color);
+  color: var(--title-color);
   padding: 0.75rem;
   border-radius: 0.5rem;
   font-family: var(--body-font);
 }
 
+.form-select option {
+  background-color: #12131c;
+  color: #ffffff;
+  padding: 0.75rem;
+}
+
 .form-input:focus, .form-textarea:focus, .form-select:focus {
   outline: none;
   border-color: var(--first-color);
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+}
+
+.form-input::placeholder, .form-textarea::placeholder {
+  color: var(--text-color-light);
+  opacity: 0.6;
+}
+
+input[type="file"]::file-selector-button {
+  background: var(--first-color);
+  color: #ffffff;
+  border: none;
+  padding: 0.4rem 0.85rem;
+  border-radius: 0.35rem;
+  cursor: pointer;
+  margin-right: 0.75rem;
+  font-family: var(--body-font);
+  font-size: var(--smaller-font-size);
+  font-weight: var(--font-medium);
+  transition: 0.2s ease;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background: var(--first-color-alt);
 }
 
 .admin-table-container {
