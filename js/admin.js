@@ -126,7 +126,13 @@ const loadAdminProjects = async () => {
         const querySnapshot = await getDocs(q);
         
         if (querySnapshot.empty) {
-            projectList.innerHTML = '<tr><td colspan="4" style="text-align: center;">No projects yet.</td></tr>';
+            projectList.innerHTML = `
+            <tr>
+                <td colspan="4" style="text-align: center; padding: 2.5rem 1rem;">
+                    <p style="color: var(--text-color-light); margin-bottom: 1rem;">Database Firestore masih kosong.</p>
+                    <button class="btn btn--small" onclick="seedDefaultData()"><i class='bx bx-cloud-upload'></i> Import 10 Project & Data Bawaan CV</button>
+                </td>
+            </tr>`;
             return;
         }
 
@@ -239,7 +245,13 @@ const loadAdminExperiences = async () => {
         const querySnapshot = await getDocs(q);
         
         if (querySnapshot.empty) {
-            expList.innerHTML = '<tr><td colspan="4" style="text-align: center;">No experiences yet.</td></tr>';
+            expList.innerHTML = `
+            <tr>
+                <td colspan="4" style="text-align: center; padding: 2.5rem 1rem;">
+                    <p style="color: var(--text-color-light); margin-bottom: 1rem;">Database Firestore masih kosong.</p>
+                    <button class="btn btn--small" onclick="seedDefaultData()"><i class='bx bx-cloud-upload'></i> Import Data Pengalaman Bawaan CV</button>
+                </td>
+            </tr>`;
             return;
         }
 
@@ -377,3 +389,166 @@ profileForm.addEventListener('submit', async (e) => {
         alert("Error saving profile: " + error.message);
     }
 });
+
+/* ================= ONE-CLICK SEED DATA FUNCTION ================= */
+window.seedDefaultData = async () => {
+    if (!confirm("Masukkan 10 project & 4 riwayat kerja CV bawaan ke Database Firestore?")) return;
+    
+    try {
+        const btn = event?.target;
+        if (btn) {
+            btn.innerText = "Memproses Import...";
+            btn.disabled = true;
+        }
+
+        // 1. PROFILE
+        await setDoc(doc(db, "settings", "profile"), {
+            name: "Moch Jaky Alfiyansyah",
+            roles: ["Full-Stack Web Developer", "IT Consultant", "UI/UX Designer"],
+            description: "Full-Stack Web Application Developer dengan pengalaman ±3 tahun dalam membangun sistem berbasis web untuk kebutuhan bisnis nyata (POS, HRIS, Marketplace, Corporate Website). Berpengalaman dalam merancang arsitektur database relasional, sistem multi-role, serta pengembangan aplikasi end-to-end.",
+            imageUrl: "assets/4x6.jpg.jpeg",
+            yearsOfExperience: "3"
+        });
+
+        // 2. EXPERIENCES
+        const experiences = [
+            {
+                company: "PT Metal Al-Hasil",
+                role: "Full-Stack Web Developer",
+                date: "2026",
+                description: "Mengembangkan Sistem POS (Point of Sale) & engine kalkulator harga acuan logam LME (London Metal Exchange) real-time, perancangan arsitektur database relasional, refactor UI/UX responsif, serta manajemen data transaksi & stok.",
+                createdAt: new Date()
+            },
+            {
+                company: "PT Jaka Satria Mandala Putra",
+                role: "Direktur Operasional",
+                date: "2025",
+                description: "Mengelola sistem operasional perusahaan jasa keamanan, menyusun SOP & sistem pembagian tugas personel, koordinasi langsung dengan klien (hotel, apartemen, perumahan), serta menangani laporan resmi, invoice, dan dokumen legal.",
+                createdAt: new Date()
+            },
+            {
+                company: "Freelance",
+                role: "Web Developer",
+                date: "2022 – Present",
+                description: "Mengembangkan berbagai aplikasi & sistem berbasis web (manajemen kos, e-commerce, sistem internal), mendesain UI responsif & meningkatkan UX, serta koordinasi langsung dengan klien menggunakan PHP Native, MySQL, HTML, CSS, JavaScript, & Bootstrap.",
+                createdAt: new Date()
+            },
+            {
+                company: "PT Bina Baru Mandiri",
+                role: "IT Consultant",
+                date: "2022",
+                description: "Mengembangkan & memelihara aplikasi berbasis web internal perusahaan, melakukan analisis kebutuhan sistem & efisiensi operasional, troubleshooting infrastruktur digital, serta konsultasi keamanan IT.",
+                createdAt: new Date()
+            }
+        ];
+
+        for (let exp of experiences) {
+            await addDoc(collection(db, "experiences"), exp);
+        }
+
+        // 3. PROJECTS
+        const defaultProjects = [
+            {
+                title: "Sistem Jurnal Pengeluaran Web",
+                category: "system",
+                description: "Sistem informasi pencatatan jurnal pengeluaran & keuangan berbasis web dengan fitur RBAC, audit log, dan laporan otomatis.",
+                technologies: ["PHP Native", "MySQL", "RBAC", "Bootstrap"],
+                imageUrl: "assets/img/sistem_jurnal.png",
+                link: "#",
+                createdAt: new Date()
+            },
+            {
+                title: "MetalHasil POS & Price Calculator",
+                category: "system",
+                description: "Point of Sale (POS) dan engine kalkulator estimasi harga acuan logam LME (London Metal Exchange) real-time.",
+                technologies: ["PHP", "MySQL", "LME Price Engine", "Bootstrap"],
+                imageUrl: "assets/img/metalhasil_pos.png",
+                link: "#",
+                createdAt: new Date()
+            },
+            {
+                title: "TMS Fleet & Vehicle Management",
+                category: "system",
+                description: "Transport Management System (TMS) pengawasan armada kendaraan, integrasi GPS tracking real-time & geofencing.",
+                technologies: ["PHP", "MySQL", "GPS API", "Geofencing Engine"],
+                imageUrl: "assets/img/tms_fleet.png",
+                link: "#",
+                createdAt: new Date()
+            },
+            {
+                title: "TMS Driver Companion App",
+                category: "web",
+                description: "Aplikasi mobile/web pendamping driver armada untuk pencatatan perjalanan, Proof of Delivery (POD), & rute pengiriman.",
+                technologies: ["JavaScript PWA", "REST API", "Geolocation"],
+                imageUrl: "assets/img/tms_fleet.png",
+                link: "#",
+                createdAt: new Date()
+            },
+            {
+                title: "Smart Agriculture Drone System",
+                category: "system",
+                description: "Sistem pemantauan & manajemen operasional drone pertanian untuk penjadwalan penerbangan & analitik tanaman.",
+                technologies: ["PHP MVC", "MySQL", "Custom Dashboard"],
+                imageUrl: "assets/img/drone_agri.png",
+                link: "#",
+                createdAt: new Date()
+            },
+            {
+                title: "OpenTrip Seribu Travel & E-Ticket",
+                category: "web",
+                description: "Platform booking paket wisata Open Trip Pulau Seribu terintegrasi Payment Gateway Midtrans & e-Tiket otomatis.",
+                technologies: ["PHP", "MySQL", "Midtrans API", "Cron Reminder"],
+                imageUrl: "assets/img/opentrip_seribu.png",
+                link: "#",
+                createdAt: new Date()
+            },
+            {
+                title: "Kopieine Coffee UMKM ERP System",
+                category: "system",
+                description: "Sistem ERP terpadu kedai kopi mencakup penggajian, manajemen gudang, keuangan, kurir, & konsinyasi warung.",
+                technologies: ["PHP", "MySQL", "Service Worker PWA", "Chart.js"],
+                imageUrl: "assets/img/kopieine_erp.png",
+                link: "#",
+                createdAt: new Date()
+            },
+            {
+                title: "Kemenag & PT JSMP Security System",
+                category: "system",
+                description: "Sistem informasi manajemen personel keamanan, pemantauan presensi harian, SOP pengamanan, & laporan cetak.",
+                technologies: ["PHP", "MySQL", "PDF/Print Engine"],
+                imageUrl: "assets/img/kemenag_security.png",
+                link: "#",
+                createdAt: new Date()
+            },
+            {
+                title: "E-Commerce Marketplace Platform",
+                category: "web",
+                description: "Platform toko online & marketplace dengan fitur katalog produk, keranjang belanja, kalkulasi checkout, & invoice.",
+                technologies: ["PHP Native", "MySQL", "Responsive UI"],
+                imageUrl: "assets/img/opentrip_seribu.png",
+                link: "#",
+                createdAt: new Date()
+            },
+            {
+                title: "Titan Quant Scalping Engine",
+                category: "system",
+                description: "Engine perdagangan kuantitatif otomatis berbasis Smart Money Concepts (SMC) & strategi scalping otomatis.",
+                technologies: ["Quant Engine", "MQL / Algorithmic", "Financial Pipeline"],
+                imageUrl: "assets/img/titan_quant.png",
+                link: "#",
+                createdAt: new Date()
+            }
+        ];
+
+        for (let proj of defaultProjects) {
+            await addDoc(collection(db, "projects"), proj);
+        }
+
+        alert("Sukses! Semua data project & pengalaman CV berhasil diimpor ke Database Firestore.");
+        loadAdminProjects();
+        loadAdminExperiences();
+        loadAdminProfile();
+    } catch (err) {
+        alert("Gagal mengimpor data: " + err.message);
+    }
+};
