@@ -382,15 +382,23 @@ const loadProfile = async () => {
                 document.querySelector('.about__description').innerText = data.description;
             }
             
-            // Update Image
-            if(data.imageUrl) {
-                let imgUrl = data.imageUrl;
-                if(imgUrl === 'assets/4x6.jpg.jpeg') imgUrl = '4x6.jpg.jpeg';
-                const profileImg = document.getElementById('profile-img');
-                if(profileImg) {
+            // Update Image & Positioning
+            const profileImg = document.getElementById('profile-img');
+            if(profileImg) {
+                if(data.imageUrl) {
+                    let imgUrl = data.imageUrl;
+                    if(imgUrl === 'assets/4x6.jpg.jpeg') imgUrl = '4x6.jpg.jpeg';
                     profileImg.src = imgUrl;
                     profileImg.onerror = () => { profileImg.src = '4x6.jpg.jpeg'; };
                 }
+
+                const zoom = (data.imgZoom || 100) / 100;
+                const posY = data.imgPosY !== undefined ? data.imgPosY : 50;
+                const posX = data.imgPosX !== undefined ? data.imgPosX : 50;
+
+                profileImg.style.objectFit = 'cover';
+                profileImg.style.objectPosition = `${posX}% ${posY}%`;
+                profileImg.style.transform = `scale(${zoom})`;
             }
             
             // Update Experience Years (the 2nd stat item)

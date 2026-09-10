@@ -213,13 +213,47 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">Profile Image</label>
+                            <label class="form-label">Profile Image & Alignment (Atur Posisi & Zoom Foto)</label>
                             <div style="display: flex; flex-direction: column; gap: 0.5rem;">
                                 <input type="file" id="prof-img-file" class="form-input" accept="image/*">
                                 <div style="text-align: center; font-size: 0.75rem; color: var(--text-color-light);">— ATAU TEMPEL URL GAMBAR —</div>
                                 <input type="text" id="prof-img" class="form-input" placeholder="https://... atau data gambar">
-                                <div id="prof-img-preview-container" style="display: none; margin-top: 0.5rem; text-align: center;">
-                                    <img id="prof-img-preview" src="" style="width: 100px; height: 100px; border-radius: 50%; border: 2px solid var(--first-color); object-fit: cover;">
+                                
+                                <div id="prof-img-preview-container" style="display: none; margin-top: 0.5rem; text-align: center; padding: 1rem; background: rgba(255,255,255,0.03); border-radius: 0.75rem; border: 1px solid var(--glass-border);">
+                                    <p style="font-size: 0.8rem; color: var(--text-color-light); margin-bottom: 0.75rem;">Preview Tampilan Lingkaran Hero (Geser Mouse / Gunakan Slider):</p>
+                                    <div style="width: 140px; height: 140px; border-radius: 50%; border: 3px solid var(--first-color); overflow: hidden; margin: 0 auto; position: relative; cursor: grab; box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);" id="prof-img-crop-box" title="Klik & Geser untuk atur posisi wajah">
+                                        <img id="prof-img-preview" src="" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none; user-select: none;">
+                                    </div>
+                                    
+                                    <!-- Controls -->
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1.25rem; text-align: left;">
+                                        <div>
+                                            <label style="font-size: 0.75rem; color: var(--text-color-light); display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+                                                <span><i class='bx bx-zoom-in'></i> Zoom Foto:</span>
+                                                <span id="prof-zoom-val" style="color: var(--first-color); font-weight: 600;">100%</span>
+                                            </label>
+                                            <input type="range" id="prof-img-zoom" min="100" max="250" value="100" style="width: 100%;">
+                                        </div>
+                                        <div>
+                                            <label style="font-size: 0.75rem; color: var(--text-color-light); display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+                                                <span><i class='bx bx-up-down'></i> Posisi Vertikal:</span>
+                                                <span id="prof-posy-val" style="color: var(--first-color); font-weight: 600;">50%</span>
+                                            </label>
+                                            <input type="range" id="prof-img-pos-y" min="0" max="100" value="50" style="width: 100%;">
+                                        </div>
+                                        <div>
+                                            <label style="font-size: 0.75rem; color: var(--text-color-light); display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+                                                <span><i class='bx bx-left-right'></i> Posisi Horizontal:</span>
+                                                <span id="prof-posx-val" style="color: var(--first-color); font-weight: 600;">50%</span>
+                                            </label>
+                                            <input type="range" id="prof-img-pos-x" min="0" max="100" value="50" style="width: 100%;">
+                                        </div>
+                                        <div style="display: flex; align-items: flex-end;">
+                                            <button type="button" id="btn-reset-img-pos" class="btn btn--small btn--outline" style="width: 100%; padding: 0.35rem 0.5rem; font-size: 0.75rem;">
+                                                <i class='bx bx-reset'></i> Reset Posisi
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

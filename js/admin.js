@@ -411,8 +411,101 @@ const resetExpForm = () => {
     document.getElementById('btn-exp-cancel').style.display = "none";
 };
 
-/* ================= PROFILE SETTINGS ================= */
+/* ================= PROFILE SETTINGS & PHOTO ALIGNMENT ================= */
 const profileForm = document.getElementById('profile-form');
+const profZoomInput = document.getElementById('prof-img-zoom');
+const profPosYInput = document.getElementById('prof-img-pos-y');
+const profPosXInput = document.getElementById('prof-img-pos-x');
+const profCropBox = document.getElementById('prof-img-crop-box');
+const btnResetImgPos = document.getElementById('btn-reset-img-pos');
+
+const updateProfilePreviewStyle = () => {
+    const previewImg = document.getElementById('prof-img-preview');
+    if (!previewImg) return;
+
+    const zoomVal = parseInt(profZoomInput?.value || 100);
+    const posYVal = parseInt(profPosYInput?.value || 50);
+    const posXVal = parseInt(profPosXInput?.value || 50);
+
+    const zoom = zoomVal / 100;
+
+    const zoomLabel = document.getElementById('prof-zoom-val');
+    const posyLabel = document.getElementById('prof-posy-val');
+    const posxLabel = document.getElementById('prof-posx-val');
+
+    if (zoomLabel) zoomLabel.innerText = `${zoomVal}%`;
+    if (posyLabel) posyLabel.innerText = `${posYVal}%`;
+    if (posxLabel) posxLabel.innerText = `${posXVal}%`;
+
+    previewImg.style.objectFit = 'cover';
+    previewImg.style.objectPosition = `${posXVal}% ${posYVal}%`;
+    previewImg.style.transform = `scale(${zoom})`;
+};
+
+// Event Listeners for Sliders
+profZoomInput?.addEventListener('input', updateProfilePreviewStyle);
+profPosYInput?.addEventListener('input', updateProfilePreviewStyle);
+profPosXInput?.addEventListener('input', updateProfilePreviewStyle);
+
+btnResetImgPos?.addEventListener('click', () => {
+    if (profZoomInput) profZoomInput.value = 100;
+    if (profPosYInput) profPosYInput.value = 50;
+    if (profPosXInput) profPosXInput.value = 50;
+    updateProfilePreviewStyle();
+});
+
+// Interactive Drag on Crop Box
+if (profCropBox) {
+    let isDragging = false;
+    let startX = 0, startY = 0, startPosX = 50, startPosY = 50;
+
+    const onDragStart = (clientX, clientY) => {
+        isDragging = true;
+        startX = clientX;
+        startY = clientY;
+        startPosX = parseInt(profPosXInput?.value || 50);
+        startPosY = parseInt(profPosYInput?.value || 50);
+        profCropBox.style.cursor = 'grabbing';
+    };
+
+    const onDragMove = (clientX, clientY) => {
+        if (!isDragging) return;
+        const deltaX = (clientX - startX) * 0.35;
+        const deltaY = (clientY - startY) * 0.35;
+
+        let newPosX = Math.min(100, Math.max(0, Math.round(startPosX - deltaX)));
+        let newPosY = Math.min(100, Math.max(0, Math.round(startPosY - deltaY)));
+
+        if (profPosXInput) profPosXInput.value = newPosX;
+        if (profPosYInput) profPosYInput.value = newPosY;
+        updateProfilePreviewStyle();
+    };
+
+    const onDragEnd = () => {
+        if (isDragging) {
+            isDragging = false;
+            profCropBox.style.cursor = 'grab';
+        }
+    };
+
+    // Mouse Events
+    profCropBox.addEventListener('mousedown', (e) => onDragStart(e.clientX, e.clientY));
+    window.addEventListener('mousemove', (e) => onDragMove(e.clientX, e.clientY));
+    window.addEventListener('mouseup', onDragEnd);
+
+    // Touch Events for Mobile
+    profCropBox.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+            onDragStart(e.touches[0].clientX, e.touches[0].clientY);
+        }
+    });
+    window.addEventListener('touchmove', (e) => {
+        if (isDragging && e.touches.length === 1) {
+            onDragMove(e.touches[0].clientX, e.touches[0].clientY);
+        }
+    });
+    window.addEventListener('touchend', onDragEnd);
+}
 
 const loadAdminProfile = async () => {
     try {
@@ -430,12 +523,17 @@ const loadAdminProfile = async () => {
             document.getElementById('prof-img').value = imgUrl;
             document.getElementById('prof-years').value = data.yearsOfExperience || "3";
 
+            if (profZoomInput) profZoomInput.value = data.imgZoom || 100;
+            if (profPosYInput) profPosYInput.value = data.imgPosY !== undefined ? data.imgPosY : 50;
+            if (profPosXInput) profPosXInput.value = data.imgPosX !== undefined ? data.imgPosX : 50;
+
             const profPreviewImg = document.getElementById('prof-img-preview');
             const profPreviewContainer = document.getElementById('prof-img-preview-container');
             if (profPreviewImg && profPreviewContainer) {
                 profPreviewImg.src = imgUrl;
                 profPreviewContainer.style.display = 'block';
                 profPreviewImg.onerror = () => { profPreviewImg.src = '4x6.jpg.jpeg'; };
+                updateProfilePreviewStyle();
             }
         }
     } catch (error) {
@@ -450,7 +548,10 @@ profileForm.addEventListener('submit', async (e) => {
         roles: document.getElementById('prof-roles').value.split(',').map(item => item.trim()),
         description: document.getElementById('prof-desc').value,
         imageUrl: document.getElementById('prof-img').value,
-        yearsOfExperience: document.getElementById('prof-years').value
+        yearsOfExperience: document.getElementById('prof-years').value,
+        imgZoom: parseInt(profZoomInput?.value || 100),
+        imgPosY: parseInt(profPosYInput?.value || 50),
+        imgPosX: parseInt(profPosXInput?.value || 50)
     };
     
     try {
