@@ -17,58 +17,80 @@
 
     <script type="module">
         import { db } from './js/firebase-config.js';
-        import { collection, addDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { collection, getDocs, doc, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         document.getElementById('btn-seed').addEventListener('click', async () => {
             const status = document.getElementById('status');
-            status.innerText = "Memproses...";
+            const btn = document.getElementById('btn-seed');
+            btn.disabled = true;
+            status.innerText = "Memproses pembersihan duplikat & import data...";
             
             try {
-                // 1. UPDATE PROFILE
+                // 1. PURGE EXISTING DUPLICATES
+                const projSnap = await getDocs(collection(db, "projects"));
+                for (let document of projSnap.docs) {
+                    await deleteDoc(doc(db, "projects", document.id));
+                }
+
+                const expSnap = await getDocs(collection(db, "experiences"));
+                for (let document of expSnap.docs) {
+                    await deleteDoc(doc(db, "experiences", document.id));
+                }
+
+                // 2. UPDATE PROFILE
                 await setDoc(doc(db, "settings", "profile"), {
                     name: "Moch Jaky Alfiyansyah",
                     roles: ["Full-Stack Web Developer", "IT Consultant", "UI/UX Designer"],
                     description: "Full-Stack Web Application Developer dengan pengalaman ±3 tahun dalam membangun sistem berbasis web untuk kebutuhan bisnis nyata (POS, HRIS, Marketplace, Corporate Website). Berpengalaman dalam merancang arsitektur database relasional, sistem multi-role, serta pengembangan aplikasi end-to-end.",
-                    imageUrl: "assets/4x6.jpg.jpeg", // Menggunakan foto lokal yang ada di folder
+                    imageUrl: "4x6.jpg.jpeg",
                     yearsOfExperience: "3"
                 });
 
-                // 2. UPDATE EXPERIENCES
+                // 3. EXPERIENCES (Deterministic IDs)
                 const experiences = [
                     {
+                        id: "exp-1",
                         company: "PT Metal Al-Hasil",
                         role: "Full-Stack Web Developer",
                         date: "2026",
-                        description: "Mengembangkan Sistem POS (Point of Sale) & engine kalkulator harga acuan logam LME (London Metal Exchange) real-time, perancangan arsitektur database relasional, refactor UI/UX responsif, serta manajemen data transaksi & stok."
+                        description: "Mengembangkan Sistem POS (Point of Sale) & engine kalkulator harga acuan logam LME (London Metal Exchange) real-time, perancangan arsitektur database relasional, refactor UI/UX responsif, serta manajemen data transaksi & stok.",
+                        createdAt: new Date()
                     },
                     {
+                        id: "exp-2",
                         company: "PT Jaka Satria Mandala Putra",
                         role: "Direktur Operasional",
                         date: "2025",
-                        description: "Mengelola sistem operasional perusahaan jasa keamanan, menyusun SOP & sistem pembagian tugas personel, koordinasi langsung dengan klien (hotel, apartemen, perumahan), serta menangani laporan resmi, invoice, dan dokumen legal."
+                        description: "Mengelola sistem operasional perusahaan jasa keamanan, menyusun SOP & sistem pembagian tugas personel, koordinasi langsung dengan klien (hotel, apartemen, perumahan), serta menangani laporan resmi, invoice, dan dokumen legal.",
+                        createdAt: new Date()
                     },
                     {
+                        id: "exp-3",
                         company: "Freelance",
                         role: "Web Developer",
                         date: "2022 – Present",
-                        description: "Mengembangkan berbagai aplikasi & sistem berbasis web (manajemen kos, e-commerce, sistem internal), mendesain UI responsif & meningkatkan UX, serta koordinasi langsung dengan klien menggunakan PHP Native, MySQL, HTML, CSS, JavaScript, & Bootstrap."
+                        description: "Mengembangkan berbagai aplikasi & sistem berbasis web (manajemen kos, e-commerce, sistem internal), mendesain UI responsif & meningkatkan UX, serta koordinasi langsung dengan klien menggunakan PHP Native, MySQL, HTML, CSS, JavaScript, & Bootstrap.",
+                        createdAt: new Date()
                     },
                     {
+                        id: "exp-4",
                         company: "PT Bina Baru Mandiri",
                         role: "IT Consultant",
                         date: "2022",
-                        description: "Mengembangkan & memelihara aplikasi berbasis web internal perusahaan, melakukan analisis kebutuhan sistem & efisiensi operasional, troubleshooting infrastruktur digital, serta konsultasi keamanan IT."
+                        description: "Mengembangkan & memelihara aplikasi berbasis web internal perusahaan, melakukan analisis kebutuhan sistem & efisiensi operasional, troubleshooting infrastruktur digital, serta konsultasi keamanan IT.",
+                        createdAt: new Date()
                     }
                 ];
 
                 for (let exp of experiences) {
-                    exp.createdAt = new Date();
-                    await addDoc(collection(db, "experiences"), exp);
+                    const { id, ...expData } = exp;
+                    await setDoc(doc(db, "experiences", id), expData);
                 }
 
-                // 3. UPDATE PROJECTS
+                // 4. PROJECTS (Deterministic IDs)
                 const projects = [
                     {
+                        id: "proj-1",
                         title: "Sistem Jurnal Pengeluaran Web",
                         category: "system",
                         description: "Sistem informasi pencatatan jurnal pengeluaran & keuangan berbasis web dengan fitur RBAC, audit log, dan laporan otomatis.",
@@ -78,15 +100,17 @@
                         createdAt: new Date()
                     },
                     {
+                        id: "proj-2",
                         title: "MetalHasil POS & Price Calculator",
                         category: "system",
                         description: "Point of Sale (POS) dan engine kalkulator estimasi harga acuan logam LME (London Metal Exchange) real-time.",
                         technologies: ["PHP", "MySQL", "LME Price Engine", "Bootstrap"],
                         imageUrl: "assets/img/metalhasil_pos.png",
-                        link: "#",
+                        link: "https://metalhasil.my.id/",
                         createdAt: new Date()
                     },
                     {
+                        id: "proj-3",
                         title: "TMS Fleet & Vehicle Management",
                         category: "system",
                         description: "Transport Management System (TMS) pengawasan armada kendaraan, integrasi GPS tracking real-time & geofencing.",
@@ -96,6 +120,7 @@
                         createdAt: new Date()
                     },
                     {
+                        id: "proj-4",
                         title: "TMS Driver Companion App",
                         category: "web",
                         description: "Aplikasi mobile/web pendamping driver armada untuk pencatatan perjalanan, Proof of Delivery (POD), & rute pengiriman.",
@@ -105,6 +130,7 @@
                         createdAt: new Date()
                     },
                     {
+                        id: "proj-5",
                         title: "Smart Agriculture Drone System",
                         category: "system",
                         description: "Sistem pemantauan & manajemen operasional drone pertanian untuk penjadwalan penerbangan & analitik tanaman.",
@@ -114,6 +140,7 @@
                         createdAt: new Date()
                     },
                     {
+                        id: "proj-6",
                         title: "OpenTrip Seribu Travel & E-Ticket",
                         category: "web",
                         description: "Platform booking paket wisata Open Trip Pulau Seribu terintegrasi Payment Gateway Midtrans & e-Tiket otomatis.",
@@ -123,6 +150,7 @@
                         createdAt: new Date()
                     },
                     {
+                        id: "proj-7",
                         title: "Kopieine Coffee UMKM ERP System",
                         category: "system",
                         description: "Sistem ERP terpadu kedai kopi mencakup penggajian, manajemen gudang, keuangan, kurir, & konsinyasi warung.",
@@ -132,6 +160,7 @@
                         createdAt: new Date()
                     },
                     {
+                        id: "proj-8",
                         title: "Kemenag & PT JSMP Security System",
                         category: "system",
                         description: "Sistem informasi manajemen personel keamanan, pemantauan presensi harian, SOP pengamanan, & laporan cetak.",
@@ -141,6 +170,7 @@
                         createdAt: new Date()
                     },
                     {
+                        id: "proj-9",
                         title: "E-Commerce Marketplace Platform",
                         category: "web",
                         description: "Platform toko online & marketplace dengan fitur katalog produk, keranjang belanja, kalkulasi checkout, & invoice.",
@@ -150,6 +180,7 @@
                         createdAt: new Date()
                     },
                     {
+                        id: "proj-10",
                         title: "Titan Quant Scalping Engine",
                         category: "system",
                         description: "Engine perdagangan kuantitatif otomatis berbasis Smart Money Concepts (SMC) & strategi scalping otomatis.",
@@ -161,14 +192,18 @@
                 ];
 
                 for (let proj of projects) {
-                    await addDoc(collection(db, "projects"), proj);
+                    const { id, ...projData } = proj;
+                    await setDoc(doc(db, "projects", id), projData);
                 }
 
-                status.innerText = "Selesai! Semua data dari CV Anda sudah berhasil dimasukkan ke Database.";
+                status.innerText = "Selesai! Duplikat berhasil dibersihkan dan 10 Project + 4 Experience telah diimpor secara rapi.";
+                status.style.color = "#10b981";
             } catch (error) {
                 console.error(error);
                 status.innerText = "Terjadi kesalahan: " + error.message;
                 status.style.color = "#ef4444";
+            } finally {
+                btn.disabled = false;
             }
         });
     </script>

@@ -396,13 +396,24 @@ profileForm.addEventListener('submit', async (e) => {
 
 /* ================= ONE-CLICK SEED DATA FUNCTION ================= */
 window.seedDefaultData = async () => {
-    if (!confirm("Masukkan 10 project & 4 riwayat kerja CV bawaan ke Database Firestore?")) return;
+    if (!confirm("Impor data CV bawaan? (Data duplikat lama akan dibersihkan otomatis)")) return;
     
     try {
         const btn = event?.target;
         if (btn) {
             btn.innerText = "Memproses Import...";
             btn.disabled = true;
+        }
+
+        // Clean any existing duplicates first
+        const projSnap = await getDocs(collection(db, "projects"));
+        for (let document of projSnap.docs) {
+            await deleteDoc(doc(db, "projects", document.id));
+        }
+
+        const expSnap = await getDocs(collection(db, "experiences"));
+        for (let document of expSnap.docs) {
+            await deleteDoc(doc(db, "experiences", document.id));
         }
 
         // 1. PROFILE
@@ -414,9 +425,10 @@ window.seedDefaultData = async () => {
             yearsOfExperience: "3"
         });
 
-        // 2. EXPERIENCES
+        // 2. EXPERIENCES (Fixed IDs prevent duplicate creation)
         const experiences = [
             {
+                id: "exp-1",
                 company: "PT Metal Al-Hasil",
                 role: "Full-Stack Web Developer",
                 date: "2026",
@@ -424,6 +436,7 @@ window.seedDefaultData = async () => {
                 createdAt: new Date()
             },
             {
+                id: "exp-2",
                 company: "PT Jaka Satria Mandala Putra",
                 role: "Direktur Operasional",
                 date: "2025",
@@ -431,6 +444,7 @@ window.seedDefaultData = async () => {
                 createdAt: new Date()
             },
             {
+                id: "exp-3",
                 company: "Freelance",
                 role: "Web Developer",
                 date: "2022 – Present",
@@ -438,6 +452,7 @@ window.seedDefaultData = async () => {
                 createdAt: new Date()
             },
             {
+                id: "exp-4",
                 company: "PT Bina Baru Mandiri",
                 role: "IT Consultant",
                 date: "2022",
@@ -447,12 +462,14 @@ window.seedDefaultData = async () => {
         ];
 
         for (let exp of experiences) {
-            await addDoc(collection(db, "experiences"), exp);
+            const { id, ...expData } = exp;
+            await setDoc(doc(db, "experiences", id), expData);
         }
 
-        // 3. PROJECTS
+        // 3. PROJECTS (Fixed IDs)
         const defaultProjects = [
             {
+                id: "proj-1",
                 title: "Sistem Jurnal Pengeluaran Web",
                 category: "system",
                 description: "Sistem informasi pencatatan jurnal pengeluaran & keuangan berbasis web dengan fitur RBAC, audit log, dan laporan otomatis.",
@@ -462,6 +479,7 @@ window.seedDefaultData = async () => {
                 createdAt: new Date()
             },
             {
+                id: "proj-2",
                 title: "MetalHasil POS & Price Calculator",
                 category: "system",
                 description: "Point of Sale (POS) dan engine kalkulator estimasi harga acuan logam LME (London Metal Exchange) real-time.",
@@ -471,6 +489,7 @@ window.seedDefaultData = async () => {
                 createdAt: new Date()
             },
             {
+                id: "proj-3",
                 title: "TMS Fleet & Vehicle Management",
                 category: "system",
                 description: "Transport Management System (TMS) pengawasan armada kendaraan, integrasi GPS tracking real-time & geofencing.",
@@ -480,6 +499,7 @@ window.seedDefaultData = async () => {
                 createdAt: new Date()
             },
             {
+                id: "proj-4",
                 title: "TMS Driver Companion App",
                 category: "web",
                 description: "Aplikasi mobile/web pendamping driver armada untuk pencatatan perjalanan, Proof of Delivery (POD), & rute pengiriman.",
@@ -489,6 +509,7 @@ window.seedDefaultData = async () => {
                 createdAt: new Date()
             },
             {
+                id: "proj-5",
                 title: "Smart Agriculture Drone System",
                 category: "system",
                 description: "Sistem pemantauan & manajemen operasional drone pertanian untuk penjadwalan penerbangan & analitik tanaman.",
@@ -498,6 +519,7 @@ window.seedDefaultData = async () => {
                 createdAt: new Date()
             },
             {
+                id: "proj-6",
                 title: "OpenTrip Seribu Travel & E-Ticket",
                 category: "web",
                 description: "Platform booking paket wisata Open Trip Pulau Seribu terintegrasi Payment Gateway Midtrans & e-Tiket otomatis.",
@@ -507,6 +529,7 @@ window.seedDefaultData = async () => {
                 createdAt: new Date()
             },
             {
+                id: "proj-7",
                 title: "Kopieine Coffee UMKM ERP System",
                 category: "system",
                 description: "Sistem ERP terpadu kedai kopi mencakup penggajian, manajemen gudang, keuangan, kurir, & konsinyasi warung.",
@@ -516,6 +539,7 @@ window.seedDefaultData = async () => {
                 createdAt: new Date()
             },
             {
+                id: "proj-8",
                 title: "Kemenag & PT JSMP Security System",
                 category: "system",
                 description: "Sistem informasi manajemen personel keamanan, pemantauan presensi harian, SOP pengamanan, & laporan cetak.",
@@ -525,6 +549,7 @@ window.seedDefaultData = async () => {
                 createdAt: new Date()
             },
             {
+                id: "proj-9",
                 title: "E-Commerce Marketplace Platform",
                 category: "web",
                 description: "Platform toko online & marketplace dengan fitur katalog produk, keranjang belanja, kalkulasi checkout, & invoice.",
@@ -534,6 +559,7 @@ window.seedDefaultData = async () => {
                 createdAt: new Date()
             },
             {
+                id: "proj-10",
                 title: "Titan Quant Scalping Engine",
                 category: "system",
                 description: "Engine perdagangan kuantitatif otomatis berbasis Smart Money Concepts (SMC) & strategi scalping otomatis.",
@@ -545,14 +571,20 @@ window.seedDefaultData = async () => {
         ];
 
         for (let proj of defaultProjects) {
-            await addDoc(collection(db, "projects"), proj);
+            const { id, ...projData } = proj;
+            await setDoc(doc(db, "projects", id), projData);
         }
 
-        alert("Sukses! Semua data project & pengalaman CV berhasil diimpor ke Database Firestore.");
+        alert("Sukses! Semua data duplikat lama berhasil dibersihkan dan data CV telah diimpor secara rapi.");
         loadAdminProjects();
         loadAdminExperiences();
         loadAdminProfile();
     } catch (err) {
         alert("Gagal mengimpor data: " + err.message);
+    } finally {
+        if (event?.target) {
+            event.target.innerText = "Import Sample Data";
+            event.target.disabled = false;
+        }
     }
 };
