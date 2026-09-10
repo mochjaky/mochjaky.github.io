@@ -447,8 +447,8 @@ img {
 }
 
 .home__blob {
-  width: 320px;
-  height: 320px;
+  width: 360px;
+  height: 360px;
   background: linear-gradient(135deg, rgba(99, 102, 241, 0.3) 0%, rgba(139, 92, 246, 0.15) 100%);
   border-radius: 50%;
   display: flex;
@@ -1298,11 +1298,18 @@ img {
     padding-block: 7rem 2rem;
   }
   .home__blob {
-    width: 350px;
-    height: 350px;
+    width: 420px;
+    height: 420px;
   }
   .portfolio__container {
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .home__blob {
+    width: 440px;
+    height: 440px;
   }
 }
 
