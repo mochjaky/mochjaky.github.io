@@ -443,26 +443,89 @@ img {
   display: flex;
   justify-content: center;
   position: relative;
+  margin-top: -1.5rem;
 }
 
 .home__blob {
-  width: 280px;
-  height: 280px;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.25) 0%, rgba(139, 92, 246, 0.1) 100%);
+  width: 320px;
+  height: 320px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.3) 0%, rgba(139, 92, 246, 0.15) 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border: 2px solid rgba(99, 102, 241, 0.4);
-  box-shadow: 0 0 40px rgba(99, 102, 241, 0.25);
-  transition: transform .4s ease, box-shadow .4s ease;
+  border: 3px solid rgba(99, 102, 241, 0.5);
+  box-shadow: 0 0 45px rgba(99, 102, 241, 0.35);
+  animation: floatAvatar 5s ease-in-out infinite, pulseAvatarGlow 4s infinite alternate;
+  transition: transform .4s ease, box-shadow .4s ease, border-color .4s ease;
 }
 
 .home__blob:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 50px rgba(99, 102, 241, 0.4);
+  transform: scale(1.04);
+  box-shadow: 0 0 65px rgba(99, 102, 241, 0.6);
   border-color: var(--first-color);
+}
+
+@keyframes floatAvatar {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes pulseAvatarGlow {
+  0% {
+    box-shadow: 0 0 35px rgba(99, 102, 241, 0.3), inset 0 0 15px rgba(139, 92, 246, 0.15);
+    border-color: rgba(99, 102, 241, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 65px rgba(139, 92, 246, 0.55), inset 0 0 35px rgba(99, 102, 241, 0.3);
+    border-color: rgba(168, 85, 247, 0.85);
+  }
+}
+
+.home__image-badge {
+  position: absolute;
+  background: rgba(15, 16, 26, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(99, 102, 241, 0.45);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  padding: 0.45rem 0.9rem;
+  border-radius: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: var(--small-font-size);
+  font-weight: var(--font-medium);
+  color: var(--title-color);
+  z-index: 5;
+  pointer-events: none;
+  animation: floatBadge 4s ease-in-out infinite alternate;
+}
+
+.badge-top {
+  top: 15px;
+  right: -10px;
+}
+
+.badge-bottom {
+  bottom: 20px;
+  left: -10px;
+  animation-delay: 2s;
+}
+
+.home__image-badge i {
+  color: var(--first-color);
+  font-size: 1.15rem;
+}
+
+@keyframes floatBadge {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-8px); }
 }
 
 .home__img {
