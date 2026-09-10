@@ -1,6 +1,12 @@
 import { db } from './firebase-config.js';
 import { collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+/* =============== CLEAN DOMAIN URL (REMOVE index.html) =============== */
+if (window.location.pathname.endsWith('/index.html')) {
+    const cleanUrl = window.location.pathname.replace(/\/index\.html$/, '/') + window.location.search + window.location.hash;
+    window.history.replaceState(null, '', cleanUrl || '/');
+}
+
 /* =============== SHOW MENU =============== */
 const navMenu = document.getElementById('nav-menu'),
       navToggle = document.getElementById('nav-toggle'),
