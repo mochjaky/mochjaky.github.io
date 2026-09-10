@@ -588,3 +588,55 @@ window.seedDefaultData = async () => {
         }
     }
 };
+
+/* ================= CLEAN DUPLICATES ONLY ================= */
+window.cleanDuplicateData = async () => {
+    if (!confirm("Apakah Anda yakin ingin menghapus semua data yang terduplikasi (nama/judul yang sama)?")) return;
+    
+    try {
+        let deletedCount = 0;
+
+        // 1. Clean Duplicate Projects by Title
+        const projSnap = await getDocs(collection(db, "projects"));
+        const seenTitles = new Map();
+        
+        for (let document of projSnap.docs) {
+            const data = document.data();
+            const titleKey = (data.title || "").trim().toLowerCase();
+            
+            if (titleKey && seenTitles.has(titleKey)) {
+                await deleteDoc(doc(db, "projects", document.id));
+                deletedCount++;
+            } else if (titleKey) {
+                seenTitles.set(titleKey, document.id);
+            }
+        }
+
+        // 2. Clean Duplicate Experiences by Role + Company
+        const expSnap = await getDocs(collection(db, "experiences"));
+        const seenExps = new Map();
+        
+        for (let document of expSnap.docs) {
+            const data = document.data();
+            const expKey = `${(data.company || "").trim().toLowerCase()}_${(data.role || "").trim().toLowerCase()}`;
+            
+            if (expKey && seenExps.has(expKey)) {
+                await deleteDoc(doc(db, "experiences", document.id));
+                deletedCount++;
+            } else if (expKey) {
+                seenExps.set(expKey, document.id);
+            }
+        }
+
+        if (deletedCount > 0) {
+            alert(`Sukses! ${deletedCount} data duplikat berhasil dibersihkan.`);
+        } else {
+            alert("Database bersih! Tidak ditemukan data duplikat.");
+        }
+
+        loadAdminProjects();
+        loadAdminExperiences();
+    } catch (err) {
+        alert("Gagal membersihkan duplikat: " + err.message);
+    }
+};
