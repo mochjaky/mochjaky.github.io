@@ -401,6 +401,16 @@ const loadProfile = async () => {
                 profileImg.style.transform = `scale(${zoom})`;
             }
             
+            // Update Hero Badges
+            if (data.badgeTopText) {
+                const badgeTopEl = document.getElementById('hero-badge-top');
+                if (badgeTopEl) badgeTopEl.innerText = data.badgeTopText;
+            }
+            if (data.badgeBottomText) {
+                const badgeBottomEl = document.getElementById('hero-badge-bottom');
+                if (badgeBottomEl) badgeBottomEl.innerText = data.badgeBottomText;
+            }
+
             // Update Experience Years (the 2nd stat item)
             if(data.yearsOfExperience) {
                 const stats = document.querySelectorAll('.stat__number');

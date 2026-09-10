@@ -523,6 +523,11 @@ const loadAdminProfile = async () => {
             document.getElementById('prof-img').value = imgUrl;
             document.getElementById('prof-years').value = data.yearsOfExperience || "3";
 
+            const badgeTopInput = document.getElementById('prof-badge-top');
+            const badgeBottomInput = document.getElementById('prof-badge-bottom');
+            if (badgeTopInput) badgeTopInput.value = data.badgeTopText || "Full-Stack Web Dev";
+            if (badgeBottomInput) badgeBottomInput.value = data.badgeBottomText || "3+ Years Exp";
+
             if (profZoomInput) profZoomInput.value = data.imgZoom || 100;
             if (profPosYInput) profPosYInput.value = data.imgPosY !== undefined ? data.imgPosY : 50;
             if (profPosXInput) profPosXInput.value = data.imgPosX !== undefined ? data.imgPosX : 50;
@@ -549,6 +554,8 @@ profileForm.addEventListener('submit', async (e) => {
         description: document.getElementById('prof-desc').value,
         imageUrl: document.getElementById('prof-img').value,
         yearsOfExperience: document.getElementById('prof-years').value,
+        badgeTopText: document.getElementById('prof-badge-top')?.value.trim() || "Full-Stack Web Dev",
+        badgeBottomText: document.getElementById('prof-badge-bottom')?.value.trim() || "3+ Years Exp",
         imgZoom: parseInt(profZoomInput?.value || 100),
         imgPosY: parseInt(profPosYInput?.value || 50),
         imgPosX: parseInt(profPosXInput?.value || 50)
