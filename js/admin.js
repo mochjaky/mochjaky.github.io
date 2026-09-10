@@ -119,6 +119,53 @@ setupImageUploader('prof-img-file', 'prof-img', 'prof-img-preview-container', 'p
 const projectForm = document.getElementById('project-form');
 const projectList = document.getElementById('project-list');
 let isEditingProject = false;
+let rawProjectsList = [];
+let rawExperiencesList = [];
+
+const renderFilteredProjectsTable = () => {
+    const search = document.getElementById('project-search')?.value.toLowerCase().trim() || '';
+    const cat = document.getElementById('project-filter-cat')?.value || 'all';
+    const sort = document.getElementById('project-sort')?.value || 'newest';
+
+    let filtered = [...rawProjectsList].filter(proj => {
+        const matchesCat = (cat === 'all') || (proj.category === cat);
+        const techStr = Array.isArray(proj.technologies) ? proj.technologies.join(' ') : (proj.technologies || '');
+        const matchesSearch = !search || 
+            proj.title.toLowerCase().includes(search) || 
+            (proj.description && proj.description.toLowerCase().includes(search)) ||
+            techStr.toLowerCase().includes(search);
+        return matchesCat && matchesSearch;
+    });
+
+    if (sort === 'az') {
+        filtered.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (sort === 'za') {
+        filtered.sort((a, b) => b.title.localeCompare(a.title));
+    } else if (sort === 'oldest') {
+        filtered.reverse();
+    }
+
+    if (filtered.length === 0) {
+        projectList.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--text-color-light); padding: 1.5rem;">Tidak ada data project yang sesuai.</td></tr>`;
+        return;
+    }
+
+    let html = '';
+    filtered.forEach((data) => {
+        html += `
+        <tr>
+            <td><img src="${data.imageUrl}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;"></td>
+            <td>${data.title}</td>
+            <td><span style="font-size: 0.8rem; background: var(--first-color); padding: 2px 6px; border-radius: 4px;">${(data.category || 'web').toUpperCase()}</span></td>
+            <td>
+                <button class="action-btn btn-edit" onclick="editProject('${data.id}')"><i class='bx bx-edit'></i></button>
+                <button class="action-btn btn-delete" onclick="deleteProject('${data.id}')"><i class='bx bx-trash'></i></button>
+            </td>
+        </tr>
+        `;
+    });
+    projectList.innerHTML = html;
+};
 
 const loadAdminProjects = async () => {
     try {
@@ -126,6 +173,8 @@ const loadAdminProjects = async () => {
         const querySnapshot = await getDocs(q);
         
         if (querySnapshot.empty) {
+            rawProjectsList = [];
+            window.adminProjects = [];
             projectList.innerHTML = `
             <tr>
                 <td colspan="4" style="text-align: center; padding: 2.5rem 1rem;">
@@ -136,27 +185,18 @@ const loadAdminProjects = async () => {
             return;
         }
 
-        let html = '';
-        querySnapshot.forEach((document) => {
-            const data = document.data();
-            html += `
-            <tr>
-                <td><img src="${data.imageUrl}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;"></td>
-                <td>${data.title}</td>
-                <td><span style="font-size: 0.8rem; background: var(--first-color); padding: 2px 6px; border-radius: 4px;">${data.category.toUpperCase()}</span></td>
-                <td>
-                    <button class="action-btn btn-edit" onclick="editProject('${document.id}')"><i class='bx bx-edit'></i></button>
-                    <button class="action-btn btn-delete" onclick="deleteProject('${document.id}')"><i class='bx bx-trash'></i></button>
-                </td>
-            </tr>
-            `;
-        });
-        projectList.innerHTML = html;
-        window.adminProjects = querySnapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
+        rawProjectsList = querySnapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
+        window.adminProjects = rawProjectsList;
+        renderFilteredProjectsTable();
     } catch (error) {
         projectList.innerHTML = '<tr><td colspan="4">Error loading data.</td></tr>';
     }
 };
+
+// Event Listeners for Project Filters
+document.getElementById('project-search')?.addEventListener('input', renderFilteredProjectsTable);
+document.getElementById('project-filter-cat')?.addEventListener('change', renderFilteredProjectsTable);
+document.getElementById('project-sort')?.addEventListener('change', renderFilteredProjectsTable);
 
 projectForm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -239,12 +279,56 @@ const expForm = document.getElementById('exp-form');
 const expList = document.getElementById('exp-list');
 let isEditingExp = false;
 
+const renderFilteredExperiencesTable = () => {
+    const search = document.getElementById('exp-search')?.value.toLowerCase().trim() || '';
+    const sort = document.getElementById('exp-sort')?.value || 'newest';
+
+    let filtered = [...rawExperiencesList].filter(exp => {
+        const matchesSearch = !search || 
+            exp.company.toLowerCase().includes(search) || 
+            exp.role.toLowerCase().includes(search) ||
+            (exp.description && exp.description.toLowerCase().includes(search));
+        return matchesSearch;
+    });
+
+    if (sort === 'az') {
+        filtered.sort((a, b) => a.company.localeCompare(b.company));
+    } else if (sort === 'za') {
+        filtered.sort((a, b) => b.company.localeCompare(a.company));
+    } else if (sort === 'oldest') {
+        filtered.reverse();
+    }
+
+    if (filtered.length === 0) {
+        expList.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--text-color-light); padding: 1.5rem;">Tidak ada data pengalaman yang sesuai.</td></tr>`;
+        return;
+    }
+
+    let html = '';
+    filtered.forEach((data) => {
+        html += `
+        <tr>
+            <td>${data.role}</td>
+            <td>${data.company}</td>
+            <td>${data.date}</td>
+            <td>
+                <button class="action-btn btn-edit" onclick="editExperience('${data.id}')"><i class='bx bx-edit'></i></button>
+                <button class="action-btn btn-delete" onclick="deleteExperience('${data.id}')"><i class='bx bx-trash'></i></button>
+            </td>
+        </tr>
+        `;
+    });
+    expList.innerHTML = html;
+};
+
 const loadAdminExperiences = async () => {
     try {
         const q = query(collection(db, "experiences"), orderBy("createdAt", "desc"));
         const querySnapshot = await getDocs(q);
         
         if (querySnapshot.empty) {
+            rawExperiencesList = [];
+            window.adminExperiences = [];
             expList.innerHTML = `
             <tr>
                 <td colspan="4" style="text-align: center; padding: 2.5rem 1rem;">
@@ -255,27 +339,17 @@ const loadAdminExperiences = async () => {
             return;
         }
 
-        let html = '';
-        querySnapshot.forEach((document) => {
-            const data = document.data();
-            html += `
-            <tr>
-                <td>${data.role}</td>
-                <td>${data.company}</td>
-                <td>${data.date}</td>
-                <td>
-                    <button class="action-btn btn-edit" onclick="editExperience('${document.id}')"><i class='bx bx-edit'></i></button>
-                    <button class="action-btn btn-delete" onclick="deleteExperience('${document.id}')"><i class='bx bx-trash'></i></button>
-                </td>
-            </tr>
-            `;
-        });
-        expList.innerHTML = html;
-        window.adminExperiences = querySnapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
+        rawExperiencesList = querySnapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
+        window.adminExperiences = rawExperiencesList;
+        renderFilteredExperiencesTable();
     } catch (error) {
         expList.innerHTML = '<tr><td colspan="4">Error loading data.</td></tr>';
     }
 };
+
+// Event Listeners for Experience Filters
+document.getElementById('exp-search')?.addEventListener('input', renderFilteredExperiencesTable);
+document.getElementById('exp-sort')?.addEventListener('change', renderFilteredExperiencesTable);
 
 expForm.addEventListener('submit', async (e) => {
     e.preventDefault();

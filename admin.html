@@ -86,6 +86,26 @@
 
                 <!-- Table -->
                 <div class="admin-table-container">
+                    <!-- Project Toolbar -->
+                    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1rem; align-items: center; background: var(--container-color); padding: 0.75rem 1rem; border-radius: 0.75rem; border: 1px solid var(--glass-border);">
+                        <div style="flex: 1; min-width: 180px; position: relative;">
+                            <i class='bx bx-search' style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-color-light);"></i>
+                            <input type="text" id="project-search" class="form-input" placeholder="Cari project / tech..." style="padding-left: 2rem; margin-bottom: 0;">
+                        </div>
+                        <select id="project-filter-cat" class="form-select" style="width: auto; min-width: 140px; margin-bottom: 0;">
+                            <option value="all">Semua Kategori</option>
+                            <option value="web">Web Development</option>
+                            <option value="design">UI/UX Design</option>
+                            <option value="system">System / Application</option>
+                        </select>
+                        <select id="project-sort" class="form-select" style="width: auto; min-width: 140px; margin-bottom: 0;">
+                            <option value="newest">Terbaru (Newest)</option>
+                            <option value="oldest">Terlama (Oldest)</option>
+                            <option value="az">Judul (A-Z)</option>
+                            <option value="za">Judul (Z-A)</option>
+                        </select>
+                    </div>
+
                     <table class="admin-table">
                         <thead>
                             <tr>
@@ -139,6 +159,20 @@
 
                 <!-- Table -->
                 <div class="admin-table-container">
+                    <!-- Experience Toolbar -->
+                    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1rem; align-items: center; background: var(--container-color); padding: 0.75rem 1rem; border-radius: 0.75rem; border: 1px solid var(--glass-border);">
+                        <div style="flex: 1; min-width: 180px; position: relative;">
+                            <i class='bx bx-search' style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-color-light);"></i>
+                            <input type="text" id="exp-search" class="form-input" placeholder="Cari posisi / perusahaan..." style="padding-left: 2rem; margin-bottom: 0;">
+                        </div>
+                        <select id="exp-sort" class="form-select" style="width: auto; min-width: 140px; margin-bottom: 0;">
+                            <option value="newest">Terbaru (Newest)</option>
+                            <option value="oldest">Terlama (Oldest)</option>
+                            <option value="az">Perusahaan (A-Z)</option>
+                            <option value="za">Perusahaan (Z-A)</option>
+                        </select>
+                    </div>
+
                     <table class="admin-table">
                         <thead>
                             <tr>

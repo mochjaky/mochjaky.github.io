@@ -345,6 +345,20 @@
                     <span class="portfolio__item" data-filter=".system">System</span>
                 </div>
 
+                <!-- Live Search & Sort Toolbar -->
+                <div class="portfolio__toolbar" style="display: flex; justify-content: center; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                    <div style="flex: 1; min-width: 200px; position: relative;">
+                        <i class='bx bx-search' style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-color-light); font-size: 1.1rem;"></i>
+                        <input type="text" id="portfolio-search" class="form-input" placeholder="Cari nama project / tech..." style="padding-left: 2.5rem; border-radius: 2rem; margin-bottom: 0; background: var(--container-color); border: 1px solid var(--glass-border);">
+                    </div>
+                    <select id="portfolio-sort" class="form-select" style="width: auto; min-width: 150px; border-radius: 2rem; margin-bottom: 0; background: var(--container-color); border: 1px solid var(--glass-border);">
+                        <option value="newest">Sort: Terbaru</option>
+                        <option value="oldest">Sort: Terlama</option>
+                        <option value="az">Sort: Nama A-Z</option>
+                        <option value="za">Sort: Nama Z-A</option>
+                    </select>
+                </div>
+
                 <div class="portfolio__container grid" id="portfolio-container">
                     <!-- Projects will be injected here via JS from Firebase -->
                     <!-- Loading state -->

@@ -69,28 +69,58 @@ const scrollActive = () => {
 };
 window.addEventListener('scroll', scrollActive);
 
-/* =============== PORTFOLIO FILTER =============== */
+/* =============== PORTFOLIO FILTER & SORT SYSTEM =============== */
+let allClientProjects = [];
+let activeCategoryFilter = 'all';
+
+const applyClientPortfolioFilters = () => {
+    const portfolioContainer = document.getElementById('portfolio-container');
+    if (!portfolioContainer) return;
+
+    const searchKey = document.getElementById('portfolio-search')?.value.toLowerCase().trim() || '';
+    const sortVal = document.getElementById('portfolio-sort')?.value || 'newest';
+
+    let filtered = [...allClientProjects].filter(proj => {
+        const matchesCategory = (activeCategoryFilter === 'all') || (proj.category === activeCategoryFilter);
+        const techStr = Array.isArray(proj.technologies) ? proj.technologies.join(' ') : (proj.technologies || '');
+        const matchesSearch = !searchKey || 
+            proj.title.toLowerCase().includes(searchKey) ||
+            (proj.description && proj.description.toLowerCase().includes(searchKey)) ||
+            techStr.toLowerCase().includes(searchKey);
+        return matchesCategory && matchesSearch;
+    });
+
+    if (sortVal === 'az') {
+        filtered.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (sortVal === 'za') {
+        filtered.sort((a, b) => b.title.localeCompare(a.title));
+    } else if (sortVal === 'oldest') {
+        filtered.reverse();
+    }
+
+    if (filtered.length === 0) {
+        portfolioContainer.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-color-light); padding: 3rem 1rem;">Tidak ada project yang cocok dengan pencarian Anda.</p>`;
+        return;
+    }
+
+    portfolioContainer.innerHTML = renderProjectCards(filtered);
+};
+
 const filterItems = document.querySelectorAll('.portfolio__item');
 
 filterItems.forEach(item => {
     item.addEventListener('click', () => {
-        // Remove active class from all
         filterItems.forEach(fi => fi.classList.remove('active-portfolio'));
-        // Add to clicked
         item.classList.add('active-portfolio');
         
-        const filterValue = item.getAttribute('data-filter');
-        const cards = document.querySelectorAll('.portfolio__card');
-        
-        cards.forEach(card => {
-            if(filterValue === 'all' || card.classList.contains(filterValue.replace('.',''))) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
+        const filterVal = item.getAttribute('data-filter') || 'all';
+        activeCategoryFilter = filterVal.replace('.', '');
+        applyClientPortfolioFilters();
     });
 });
+
+document.getElementById('portfolio-search')?.addEventListener('input', applyClientPortfolioFilters);
+document.getElementById('portfolio-sort')?.addEventListener('change', applyClientPortfolioFilters);
 
 /* =============== FETCH PROJECTS =============== */
 const defaultProjects = [
@@ -311,20 +341,18 @@ const loadProjects = async () => {
         const querySnapshot = await getDocs(q);
         
         if (querySnapshot.empty) {
-            portfolioContainer.innerHTML = renderProjectCards(defaultProjects);
+            allClientProjects = [...defaultProjects];
+            applyClientPortfolioFilters();
             return;
         }
 
-        let projectsList = [];
-        querySnapshot.forEach((doc) => {
-            projectsList.push(doc.data());
-        });
-        
-        portfolioContainer.innerHTML = renderProjectCards(projectsList);
+        allClientProjects = querySnapshot.docs.map(doc => doc.data());
+        applyClientPortfolioFilters();
         
     } catch (error) {
         console.log("Loading local projects list:", error);
-        portfolioContainer.innerHTML = renderProjectCards(defaultProjects);
+        allClientProjects = [...defaultProjects];
+        applyClientPortfolioFilters();
     }
 };
 
