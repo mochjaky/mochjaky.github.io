@@ -177,9 +177,8 @@ const loadAdminProjects = async () => {
             window.adminProjects = [];
             projectList.innerHTML = `
             <tr>
-                <td colspan="4" style="text-align: center; padding: 2.5rem 1rem;">
-                    <p style="color: var(--text-color-light); margin-bottom: 1rem;">Database Firestore masih kosong.</p>
-                    <button class="btn btn--small" onclick="seedDefaultData()"><i class='bx bx-cloud-upload'></i> Import 10 Project & Data Bawaan CV</button>
+                <td colspan="4" style="text-align: center; padding: 2.5rem 1rem; color: var(--text-color-light);">
+                    Database Firestore masih kosong. Silakan tambah project baru melalui form di sebelah kiri.
                 </td>
             </tr>`;
             return;
@@ -331,9 +330,8 @@ const loadAdminExperiences = async () => {
             window.adminExperiences = [];
             expList.innerHTML = `
             <tr>
-                <td colspan="4" style="text-align: center; padding: 2.5rem 1rem;">
-                    <p style="color: var(--text-color-light); margin-bottom: 1rem;">Database Firestore masih kosong.</p>
-                    <button class="btn btn--small" onclick="seedDefaultData()"><i class='bx bx-cloud-upload'></i> Import Data Pengalaman Bawaan CV</button>
+                <td colspan="4" style="text-align: center; padding: 2.5rem 1rem; color: var(--text-color-light);">
+                    Database Firestore masih kosong. Silakan tambah pengalaman baru melalui form di sebelah kiri.
                 </td>
             </tr>`;
             return;
