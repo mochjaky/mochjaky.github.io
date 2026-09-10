@@ -7,20 +7,43 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="css/styles.css?v=2.3">
+    <link rel="stylesheet" href="css/styles.css?v=2.5">
     <!-- Hide body until auth check is complete -->
     <style>body { visibility: hidden; }</style>
 </head>
 <body>
     <div class="admin-container">
         <div class="admin-header">
-            <h2 style="display: flex; align-items: center; gap: 0.5rem;"><img src="favicon.svg" style="width: 32px; height: 32px; border-radius: 8px; box-shadow: 0 0 12px rgba(99, 102, 241, 0.4);"> Admin Dashboard</h2>
-            <div>
-                <span id="admin-email" style="margin-right: 1rem; color: var(--text-color-light);"></span>
-                <button onclick="cleanDuplicateData()" class="btn btn--small btn--outline" style="margin-right: 0.5rem;"><i class='bx bx-broom'></i> Bersihkan Duplikat</button>
-                <button onclick="seedDefaultData()" class="btn btn--small btn--outline" style="margin-right: 0.5rem;"><i class='bx bx-cloud-upload'></i> Import Sample Data</button>
-                <button id="btn-logout" class="btn btn--small btn--outline">Logout</button>
-                <a href="index.html" class="btn btn--small">View Site</a>
+            <!-- Brand / Title -->
+            <div class="admin-header-brand">
+                <img src="favicon.svg" alt="Logo" class="admin-header-logo">
+                <div>
+                    <h2 class="admin-header-title">Admin Dashboard</h2>
+                    <span class="admin-header-subtitle"><i class='bx bxs-circle' style="color: #10b981; font-size: 0.5rem;"></i> Active Session</span>
+                </div>
+            </div>
+
+            <!-- User Profile & Actions Bar -->
+            <div class="admin-header-actions">
+                <div class="admin-user-badge">
+                    <i class='bx bx-user-circle'></i>
+                    <span id="admin-email">Loading...</span>
+                </div>
+
+                <div class="admin-btn-group">
+                    <button onclick="cleanDuplicateData()" class="btn btn--small btn--outline" title="Bersihkan data duplikat">
+                        <i class='bx bx-broom'></i> <span>Bersihkan Duplikat</span>
+                    </button>
+                    <button onclick="seedDefaultData()" class="btn btn--small btn--outline" title="Import sample data CV">
+                        <i class='bx bx-cloud-upload'></i> <span>Import Sample</span>
+                    </button>
+                    <a href="index.html" target="_blank" class="btn btn--small" style="background: var(--first-color); color: #fff;">
+                        <i class='bx bx-export'></i> <span>View Site</span>
+                    </a>
+                    <button id="btn-logout" class="btn btn--small btn--outline btn--danger">
+                        <i class='bx bx-log-out'></i> <span>Logout</span>
+                    </button>
+                </div>
             </div>
         </div>
 

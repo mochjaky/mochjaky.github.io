@@ -1325,9 +1325,98 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1.5rem;
   margin-bottom: 2rem;
-  padding-bottom: 1rem;
+  padding-bottom: 1.25rem;
   border-bottom: 1px solid var(--glass-border);
+  flex-wrap: wrap;
+}
+
+.admin-header-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.admin-header-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 16px rgba(99, 102, 241, 0.45);
+  object-fit: cover;
+}
+
+.admin-header-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--title-color);
+  margin: 0;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+.admin-header-subtitle {
+  font-size: 0.75rem;
+  color: var(--text-color-light);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.15rem;
+}
+
+.admin-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.admin-user-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.85rem;
+  background: var(--glass-color);
+  border: 1px solid var(--glass-border);
+  border-radius: 2rem;
+  font-size: 0.8rem;
+  color: var(--text-color-light);
+  white-space: nowrap;
+}
+
+.admin-user-badge i {
+  font-size: 1.1rem;
+  color: var(--first-color);
+}
+
+.admin-btn-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.admin-btn-group .btn {
+  height: 38px;
+  padding: 0 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.admin-btn-group .btn--danger {
+  border-color: rgba(239, 68, 68, 0.4);
+  color: #f87171;
+}
+
+.admin-btn-group .btn--danger:hover {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: #ef4444;
+  color: #ef4444;
 }
 
 .admin-grid {
