@@ -105,6 +105,24 @@
                 <div class="home__image">
                     <div class="home__blob">
                         <img src="4x6.jpg.jpeg" alt="Moch Jaky Alfiyansyah" class="home__img" id="profile-img">
+                        <script>
+                            try {
+                                var cachedProf = localStorage.getItem('portfolio_profile');
+                                if (cachedProf) {
+                                    var pData = JSON.parse(cachedProf);
+                                    var pImg = document.getElementById('profile-img');
+                                    if (pData.imageUrl && pImg) {
+                                        pImg.src = pData.imageUrl;
+                                        var z = (pData.imgZoom || 100) / 100;
+                                        var py = pData.imgPosY !== undefined ? pData.imgPosY : 50;
+                                        var px = pData.imgPosX !== undefined ? pData.imgPosX : 50;
+                                        pImg.style.objectFit = 'cover';
+                                        pImg.style.objectPosition = px + '% ' + py + '%';
+                                        pImg.style.transform = 'scale(' + z + ')';
+                                    }
+                                }
+                            } catch(e) {}
+                        </script>
                     </div>
                     <div class="home__image-badge badge-top">
                         <i class='bx bx-code-alt'></i>
