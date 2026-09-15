@@ -517,6 +517,12 @@ const loadAdminProfile = async () => {
 
             document.getElementById('prof-name').value = data.name || "Moch Jaky Alfiyansyah";
             document.getElementById('prof-roles').value = (data.roles || ["IT Consultant", "Web Developer"]).join(', ');
+            const techStackInput = document.getElementById('prof-tech-stack');
+            if (techStackInput) {
+                techStackInput.value = data.techStack 
+                    ? (Array.isArray(data.techStack) ? data.techStack.join(', ') : data.techStack) 
+                    : "PHP, MySQL, JavaScript, Bootstrap, Figma";
+            }
             document.getElementById('prof-desc').value = data.description || "";
             document.getElementById('prof-img').value = imgUrl;
             document.getElementById('prof-years').value = data.yearsOfExperience || "3";
@@ -549,6 +555,7 @@ profileForm.addEventListener('submit', async (e) => {
     const profileData = {
         name: document.getElementById('prof-name').value,
         roles: document.getElementById('prof-roles').value.split(',').map(item => item.trim()),
+        techStack: document.getElementById('prof-tech-stack')?.value.split(',').map(item => item.trim()).filter(Boolean) || ["PHP", "MySQL", "JavaScript", "Bootstrap", "Figma"],
         description: document.getElementById('prof-desc').value,
         imageUrl: document.getElementById('prof-img').value,
         yearsOfExperience: document.getElementById('prof-years').value,
@@ -601,6 +608,7 @@ window.seedDefaultData = async () => {
         await setDoc(doc(db, "settings", "profile"), {
             name: "Moch Jaky Alfiyansyah",
             roles: ["Full-Stack Web Developer", "IT Consultant", "UI/UX Designer"],
+            techStack: ["PHP", "MySQL", "JavaScript", "Bootstrap", "Figma"],
             description: "Full-Stack Web Application Developer dengan pengalaman ±3 tahun dalam membangun sistem berbasis web untuk kebutuhan bisnis nyata (POS, HRIS, Marketplace, Corporate Website). Berpengalaman dalam merancang arsitektur database relasional, sistem multi-role, serta pengembangan aplikasi end-to-end.",
             imageUrl: "4x6.jpg.jpeg",
             yearsOfExperience: "3"

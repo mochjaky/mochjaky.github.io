@@ -365,6 +365,32 @@ const loadProjects = async () => {
 /* =============== FETCH PROFILE SETTINGS FROM FIREBASE =============== */
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+const getTechIconClass = (techName) => {
+    const t = techName.toLowerCase();
+    if (t.includes('php')) return 'bx bxl-php';
+    if (t.includes('mysql') || t.includes('sql') || t.includes('database')) return 'bx bxs-data';
+    if (t.includes('typescript') || t.includes('ts')) return 'bx bxl-typescript';
+    if (t.includes('javascript') || t.includes('js')) return 'bx bxl-javascript';
+    if (t.includes('bootstrap')) return 'bx bxl-bootstrap';
+    if (t.includes('figma')) return 'bx bxl-figma';
+    if (t.includes('react')) return 'bx bxl-react';
+    if (t.includes('vue')) return 'bx bxl-vuejs';
+    if (t.includes('laravel')) return 'bx bxl-laravel';
+    if (t.includes('python')) return 'bx bxl-python';
+    if (t.includes('node')) return 'bx bxl-nodejs';
+    if (t.includes('html')) return 'bx bxl-html5';
+    if (t.includes('css')) return 'bx bxl-css3';
+    if (t.includes('git')) return 'bx bxl-git';
+    if (t.includes('firebase')) return 'bx bxl-firebase';
+    if (t.includes('tailwind')) return 'bx bxl-tailwind-css';
+    if (t.includes('pwa') || t.includes('mobile')) return 'bx bx-mobile-alt';
+    if (t.includes('api') || t.includes('rest')) return 'bx bx-code-curly';
+    if (t.includes('geo') || t.includes('location')) return 'bx bx-map-pin';
+    if (t.includes('rbac') || t.includes('shield') || t.includes('auth')) return 'bx bx-shield-quarter';
+    if (t.includes('ui') || t.includes('ux') || t.includes('design')) return 'bx bx-palette';
+    return 'bx bx-code-alt';
+};
+
 const applyProfileToDom = (data) => {
     if (!data) return;
 
@@ -377,6 +403,21 @@ const applyProfileToDom = (data) => {
     // Update Roles for Typewriter
     if (data.roles && data.roles.length > 0) {
         window.customRoles = data.roles;
+    }
+
+    // Update Tech Stack Badges
+    const heroTechStack = document.getElementById('hero-tech-stack');
+    if (heroTechStack && data.techStack) {
+        const stackList = Array.isArray(data.techStack) 
+            ? data.techStack 
+            : (typeof data.techStack === 'string' ? data.techStack.split(',') : []);
+        const cleanList = stackList.map(s => s.trim()).filter(Boolean);
+        if (cleanList.length > 0) {
+            heroTechStack.innerHTML = cleanList.map(tech => {
+                const iconClass = getTechIconClass(tech);
+                return `<span class="home__tech-pill"><i class='${iconClass}'></i> ${tech}</span>`;
+            }).join('');
+        }
     }
 
     // Update Descriptions
