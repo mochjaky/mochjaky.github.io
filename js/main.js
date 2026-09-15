@@ -365,67 +365,86 @@ const loadProjects = async () => {
 /* =============== FETCH PROFILE SETTINGS FROM FIREBASE =============== */
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+const applyProfileToDom = (data) => {
+    if (!data) return;
+
+    // Update Name
+    if (data.name) {
+        const nameEl = document.querySelector('.home__name');
+        if (nameEl) nameEl.innerText = data.name;
+    }
+
+    // Update Roles for Typewriter
+    if (data.roles && data.roles.length > 0) {
+        window.customRoles = data.roles;
+    }
+
+    // Update Descriptions
+    if (data.description) {
+        const homeDesc = document.querySelector('.home__description');
+        const aboutDesc = document.querySelector('.about__description');
+        if (homeDesc) homeDesc.innerText = data.description;
+        if (aboutDesc) aboutDesc.innerText = data.description;
+    }
+
+    // Update Image & Positioning
+    const profileImg = document.getElementById('profile-img');
+    if (profileImg) {
+        if (data.imageUrl) {
+            let imgUrl = data.imageUrl;
+            if (imgUrl === 'assets/4x6.jpg.jpeg') imgUrl = '4x6.jpg.jpeg';
+            profileImg.src = imgUrl;
+            profileImg.onerror = () => { profileImg.src = '4x6.jpg.jpeg'; };
+        }
+
+        const zoom = (data.imgZoom || 100) / 100;
+        const posY = data.imgPosY !== undefined ? data.imgPosY : 50;
+        const posX = data.imgPosX !== undefined ? data.imgPosX : 50;
+
+        profileImg.style.objectFit = 'cover';
+        profileImg.style.objectPosition = `${posX}% ${posY}%`;
+        profileImg.style.transform = `scale(${zoom})`;
+    }
+
+    // Update Hero Badges
+    if (data.badgeTopText) {
+        const badgeTopEl = document.getElementById('hero-badge-top');
+        if (badgeTopEl) badgeTopEl.innerText = data.badgeTopText;
+    }
+    if (data.badgeBottomText) {
+        const badgeBottomEl = document.getElementById('hero-badge-bottom');
+        if (badgeBottomEl) badgeBottomEl.innerText = data.badgeBottomText;
+    }
+
+    // Update Experience Years (the 2nd stat item)
+    if (data.yearsOfExperience) {
+        const stats = document.querySelectorAll('.stat__number');
+        if (stats.length > 1) {
+            stats[1].innerText = data.yearsOfExperience + '+';
+        }
+        const aboutSub = document.querySelector('.about__subtitle');
+        if (aboutSub) aboutSub.innerText = data.yearsOfExperience + '+ Years Working';
+    }
+};
+
 const loadProfile = async () => {
+    // 1. Instant load from local cache (0ms flicker-free)
+    try {
+        const cached = localStorage.getItem('portfolio_profile');
+        if (cached) {
+            applyProfileToDom(JSON.parse(cached));
+        }
+    } catch (e) {}
+
+    // 2. Fetch fresh from Firebase Firestore & sync
     try {
         const docRef = doc(db, "settings", "profile");
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
             const data = docSnap.data();
-            
-            // Update Name
-            if(data.name) document.querySelector('.home__name').innerText = data.name;
-            
-            // Update Roles
-            if(data.roles && data.roles.length > 0) {
-                // simple typewriter text replace for now
-                document.querySelector('.typewriter').innerText = data.roles.join(' | ');
-            }
-            
-            // Update Descriptions
-            if(data.description) {
-                document.querySelector('.home__description').innerText = data.description;
-                document.querySelector('.about__description').innerText = data.description;
-            }
-            
-            // Update Image & Positioning
-            const profileImg = document.getElementById('profile-img');
-            if(profileImg) {
-                if(data.imageUrl) {
-                    let imgUrl = data.imageUrl;
-                    if(imgUrl === 'assets/4x6.jpg.jpeg') imgUrl = '4x6.jpg.jpeg';
-                    profileImg.src = imgUrl;
-                    profileImg.onerror = () => { profileImg.src = '4x6.jpg.jpeg'; };
-                }
-
-                const zoom = (data.imgZoom || 100) / 100;
-                const posY = data.imgPosY !== undefined ? data.imgPosY : 50;
-                const posX = data.imgPosX !== undefined ? data.imgPosX : 50;
-
-                profileImg.style.objectFit = 'cover';
-                profileImg.style.objectPosition = `${posX}% ${posY}%`;
-                profileImg.style.transform = `scale(${zoom})`;
-            }
-            
-            // Update Hero Badges
-            if (data.badgeTopText) {
-                const badgeTopEl = document.getElementById('hero-badge-top');
-                if (badgeTopEl) badgeTopEl.innerText = data.badgeTopText;
-            }
-            if (data.badgeBottomText) {
-                const badgeBottomEl = document.getElementById('hero-badge-bottom');
-                if (badgeBottomEl) badgeBottomEl.innerText = data.badgeBottomText;
-            }
-
-            // Update Experience Years (the 2nd stat item)
-            if(data.yearsOfExperience) {
-                const stats = document.querySelectorAll('.stat__number');
-                if(stats.length > 1) {
-                    stats[1].innerText = data.yearsOfExperience + '+';
-                    // Update about box years too
-                    document.querySelector('.about__subtitle').innerText = data.yearsOfExperience + '+ Years Working';
-                }
-            }
+            localStorage.setItem('portfolio_profile', JSON.stringify(data));
+            applyProfileToDom(data);
         }
     } catch (error) {
         console.error("Error loading profile", error);
@@ -522,7 +541,7 @@ const initTypewriter = () => {
     const typewriterEl = document.querySelector('.typewriter');
     if (!typewriterEl) return;
     
-    const roles = [
+    const roles = (window.customRoles && window.customRoles.length > 0) ? window.customRoles : [
         "Full-Stack Web Developer",
         "UI/UX Designer",
         "IT Consultant",

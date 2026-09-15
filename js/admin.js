@@ -564,6 +564,7 @@ profileForm.addEventListener('submit', async (e) => {
         btn.innerText = "Saving...";
         
         await setDoc(doc(db, "settings", "profile"), profileData);
+        localStorage.setItem('portfolio_profile', JSON.stringify(profileData));
         
         btn.innerText = "Save Profile";
         const msg = document.getElementById('prof-msg');
