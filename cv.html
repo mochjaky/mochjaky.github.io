@@ -7,7 +7,7 @@
     <style>
         @page {
             size: A4;
-            margin: 10mm 12mm;
+            margin: 8mm 12mm;
         }
         * {
             box-sizing: border-box;
@@ -18,8 +18,8 @@
             font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
             color: #1a1a1a;
             background: #fff;
-            line-height: 1.35;
-            font-size: 9.5pt;
+            line-height: 1.3;
+            font-size: 9.2pt;
         }
         .container {
             width: 100%;
@@ -30,28 +30,28 @@
         .header {
             text-align: center;
             border-bottom: 2px solid #2563eb;
-            padding-bottom: 8px;
-            margin-bottom: 10px;
+            padding-bottom: 6px;
+            margin-bottom: 8px;
         }
         .name {
-            font-size: 18pt;
+            font-size: 17pt;
             font-weight: 700;
             color: #0f172a;
             letter-spacing: 0.5px;
             text-transform: uppercase;
         }
         .title {
-            font-size: 10.5pt;
+            font-size: 10pt;
             font-weight: 600;
             color: #2563eb;
-            margin-top: 2px;
-            margin-bottom: 5px;
+            margin-top: 1px;
+            margin-bottom: 4px;
         }
         .contact-info {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
             font-size: 8.5pt;
             color: #475569;
         }
@@ -66,16 +66,16 @@
 
         /* Section Formatting */
         .section {
-            margin-bottom: 9px;
+            margin-bottom: 7px;
         }
         .section-title {
-            font-size: 10pt;
+            font-size: 9.5pt;
             font-weight: 700;
             color: #0f172a;
             text-transform: uppercase;
             border-bottom: 1px solid #e2e8f0;
-            padding-bottom: 3px;
-            margin-bottom: 6px;
+            padding-bottom: 2px;
+            margin-bottom: 5px;
             letter-spacing: 0.5px;
             display: flex;
             align-items: center;
@@ -85,14 +85,14 @@
             content: '';
             display: inline-block;
             width: 4px;
-            height: 12px;
+            height: 11px;
             background: #2563eb;
             border-radius: 2px;
         }
 
         /* Summary */
         .summary-text {
-            font-size: 9pt;
+            font-size: 8.8pt;
             color: #334155;
             text-align: justify;
         }
@@ -101,8 +101,8 @@
         .skills-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4px 12px;
-            font-size: 8.8pt;
+            gap: 3px 12px;
+            font-size: 8.6pt;
         }
         .skill-item {
             display: flex;
@@ -110,7 +110,7 @@
         .skill-label {
             font-weight: 600;
             color: #1e293b;
-            min-width: 140px;
+            min-width: 130px;
         }
         .skill-val {
             color: #334155;
@@ -118,7 +118,7 @@
 
         /* Experience Items */
         .exp-item {
-            margin-bottom: 7px;
+            margin-bottom: 5px;
         }
         .exp-header {
             display: flex;
@@ -127,7 +127,7 @@
         }
         .exp-role {
             font-weight: 700;
-            font-size: 9.5pt;
+            font-size: 9pt;
             color: #0f172a;
         }
         .exp-company {
@@ -135,45 +135,51 @@
             color: #2563eb;
         }
         .exp-date {
-            font-size: 8.5pt;
+            font-size: 8.2pt;
             font-weight: 600;
             color: #64748b;
         }
         .exp-list {
             list-style-type: disc;
             margin-left: 14px;
-            margin-top: 2px;
+            margin-top: 1px;
         }
         .exp-list li {
-            font-size: 8.8pt;
+            font-size: 8.5pt;
             color: #334155;
-            margin-bottom: 2px;
+            margin-bottom: 1px;
             text-align: justify;
         }
 
-        /* Projects */
+        /* Projects Grid (2 Columns) */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 12px;
+        }
         .project-item {
-            margin-bottom: 6px;
+            margin-bottom: 2px;
         }
         .project-name {
             font-weight: 700;
-            font-size: 9pt;
+            font-size: 8.6pt;
             color: #0f172a;
         }
         .project-stack {
             font-weight: 600;
-            font-size: 8pt;
+            font-size: 7.6pt;
             color: #2563eb;
             background: #eff6ff;
-            padding: 1px 6px;
-            border-radius: 4px;
+            padding: 1px 4px;
+            border-radius: 3px;
             display: inline-block;
-            margin-left: 6px;
+            margin-left: 4px;
         }
         .project-desc {
-            font-size: 8.6pt;
+            font-size: 8.2pt;
             color: #334155;
             margin-top: 1px;
+            text-align: justify;
         }
 
         /* Education & Certs Grid */
@@ -184,11 +190,11 @@
         }
         .edu-item-title {
             font-weight: 700;
-            font-size: 9pt;
+            font-size: 8.8pt;
             color: #0f172a;
         }
         .edu-item-sub {
-            font-size: 8.5pt;
+            font-size: 8.2pt;
             color: #475569;
         }
     </style>
@@ -216,17 +222,17 @@
         <div class="section">
             <div class="section-title">Ringkasan Profil</div>
             <p class="summary-text">
-                Full-Stack Web Application Developer dengan pengalaman 3+ tahun dalam merancang dan memproduksi sistem berbasis web bisnis nyata (POS, HRIS, ERP, Document Workflow, dan Corporate Applications). Memiliki keahlian kuat dalam perancangan arsitektur database relasional (MySQL), sistem keamanan hak akses (RBAC), serta pengembangan aplikasi berbasis PHP (Native & Laravel), JavaScript, dan Bootstrap. Terbiasa mengelola siklus pengembangan perangkat lunak end-to-end dengan dukungan pengalaman manajerial operasional dalam analisis proses bisnis dan komunikasi tim.
+                Full-Stack Web Application Developer dengan pengalaman 3+ tahun dalam merancang dan memproduksi sistem berbasis web bisnis nyata (POS, HRIS, Fleet Management, Jurnal Keuangan, Document Workflow, dan Corporate Applications). Memiliki keahlian kuat dalam perancangan arsitektur database relasional (MySQL), sistem keamanan hak akses (RBAC), Geolocation API, serta pengembangan aplikasi berbasis PHP (Native & Laravel), JavaScript, dan Bootstrap. Terbiasa mengelola siklus pengembangan perangkat lunak end-to-end dengan dukungan pengalaman manajerial operasional dalam analisis proses bisnis dan komunikasi tim.
             </p>
         </div>
 
         <!-- TECHNICAL SKILLS -->
         <div class="section">
-            <div class="section-title">Keahlian Teknis</div>
+            <div class="section-title">Keahlian Teknis (Stack Portfolio)</div>
             <div class="skills-grid">
                 <div class="skill-item">
                     <span class="skill-label">Backend & Database:</span>
-                    <span class="skill-val">PHP (Native, Laravel), MySQL, Database Architecture</span>
+                    <span class="skill-val">PHP (Native, Laravel), MySQL, Relational Database Architecture</span>
                 </div>
                 <div class="skill-item">
                     <span class="skill-label">Frontend & UI/UX:</span>
@@ -234,7 +240,7 @@
                 </div>
                 <div class="skill-item">
                     <span class="skill-label">System & Security:</span>
-                    <span class="skill-val">RBAC Access Control, Multi-level Approval, REST API</span>
+                    <span class="skill-val">RBAC Security, Multi-level Approval, Geolocation API, REST API</span>
                 </div>
                 <div class="skill-item">
                     <span class="skill-label">Tools & Workflow:</span>
@@ -299,32 +305,58 @@
             </div>
         </div>
 
-        <!-- KEY PROJECTS -->
+        <!-- KEY PROJECTS FROM GITHUB PORTFOLIO -->
         <div class="section">
-            <div class="section-title">Pengalaman Project (Key Projects)</div>
+            <div class="section-title">Pengalaman Project Utama (GitHub Portfolio Highlights)</div>
             
-            <div class="project-item">
-                <div>
-                    <span class="project-name">MetalHasil POS & LME Price Engine</span>
-                    <span class="project-stack">PHP Native, MySQL, LME Engine, Bootstrap 5</span>
+            <div class="projects-grid">
+                <div class="project-item">
+                    <div>
+                        <span class="project-name">MetalHasil POS & Price Calculator</span>
+                        <span class="project-stack">PHP, MySQL, LME Engine</span>
+                    </div>
+                    <div class="project-desc">POS terintegrasi kalkulator harga acuan logam internasional real-time dengan manajemen stok & transaksi.</div>
                 </div>
-                <div class="project-desc">Aplikasi Point of Sale terintegrasi kalkulator harga acuan logam internasional real-time dengan manajemen stok dan laporan transaksi otomatis.</div>
-            </div>
 
-            <div class="project-item">
-                <div>
-                    <span class="project-name">HRIS & Employee Management System</span>
-                    <span class="project-stack">PHP, MySQL, RBAC Security, Dynamic Shift</span>
+                <div class="project-item">
+                    <div>
+                        <span class="project-name">TMS Fleet & Vehicle Management</span>
+                        <span class="project-stack">PHP Native, MySQL, Geolocation</span>
+                    </div>
+                    <div class="project-desc">Sistem manajemen armada, rute penugasan driver, pemantauan lokasi, dan laporan konsumsi BBM.</div>
                 </div>
-                <div class="project-desc">Sistem pengelolaan SDM dengan fitur presensi, manajemen shift, tunjangan, penempatan lokasi gedung, dan pembatasan akses berbasis peran.</div>
-            </div>
 
-            <div class="project-item">
-                <div>
-                    <span class="project-name">Document Workflow & Multi-Level Approval System</span>
-                    <span class="project-stack">PHP, MySQL, Workflow Architecture, Audit Trail</span>
+                <div class="project-item">
+                    <div>
+                        <span class="project-name">HRIS & Employee Management</span>
+                        <span class="project-stack">PHP, MySQL, RBAC, Dynamic Shift</span>
+                    </div>
+                    <div class="project-desc">Sistem SDM: presensi, manajemen shift, tunjangan, penempatan gedung, & kontrol hak akses RBAC.</div>
                 </div>
-                <div class="project-desc">Sistem aliran dokumen bisnis dengan otorisasi multi-level (level 1-3), digital signing logic, audit trail logging, dan sistem notifikasi otomatis.</div>
+
+                <div class="project-item">
+                    <div>
+                        <span class="project-name">Sistem Jurnal Pengeluaran Web</span>
+                        <span class="project-stack">PHP Native, MySQL, RBAC Log</span>
+                    </div>
+                    <div class="project-desc">Pencatatan keuangan & jurnal pengeluaran bisnis dengan fitur RBAC, audit log, dan laporan otomatis.</div>
+                </div>
+
+                <div class="project-item">
+                    <div>
+                        <span class="project-name">Document Workflow & Approval</span>
+                        <span class="project-stack">PHP, MySQL, Workflow Engine</span>
+                    </div>
+                    <div class="project-desc">Alur dokumen bisnis dengan otorisasi multi-level (level 1-3), digital signing logic, dan notifikasi.</div>
+                </div>
+
+                <div class="project-item">
+                    <div>
+                        <span class="project-name">Corporate Platform & Digital CMS</span>
+                        <span class="project-stack">HTML5, CSS3, JS, UI Design</span>
+                    </div>
+                    <div class="project-desc">Website branding & portal korporat interaktif dengan UI/UX responsif modern dan lead capture.</div>
+                </div>
             </div>
         </div>
 
