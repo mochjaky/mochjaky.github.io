@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curriculum Vitae - Moch Jaky Alfiyansyah</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 10mm 12mm;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+            color: #1a1a1a;
+            background: #fff;
+            line-height: 1.35;
+            font-size: 9.5pt;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        /* Header Section */
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #2563eb;
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+        }
+        .name {
+            font-size: 18pt;
+            font-weight: 700;
+            color: #0f172a;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .title {
+            font-size: 10.5pt;
+            font-weight: 600;
+            color: #2563eb;
+            margin-top: 2px;
+            margin-bottom: 5px;
+        }
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 8.5pt;
+            color: #475569;
+        }
+        .contact-info a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .contact-separator {
+            color: #cbd5e1;
+        }
+
+        /* Section Formatting */
+        .section {
+            margin-bottom: 9px;
+        }
+        .section-title {
+            font-size: 10pt;
+            font-weight: 700;
+            color: #0f172a;
+            text-transform: uppercase;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 3px;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 12px;
+            background: #2563eb;
+            border-radius: 2px;
+        }
+
+        /* Summary */
+        .summary-text {
+            font-size: 9pt;
+            color: #334155;
+            text-align: justify;
+        }
+
+        /* Technical Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px 12px;
+            font-size: 8.8pt;
+        }
+        .skill-item {
+            display: flex;
+        }
+        .skill-label {
+            font-weight: 600;
+            color: #1e293b;
+            min-width: 140px;
+        }
+        .skill-val {
+            color: #334155;
+        }
+
+        /* Experience Items */
+        .exp-item {
+            margin-bottom: 7px;
+        }
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+        .exp-role {
+            font-weight: 700;
+            font-size: 9.5pt;
+            color: #0f172a;
+        }
+        .exp-company {
+            font-weight: 600;
+            color: #2563eb;
+        }
+        .exp-date {
+            font-size: 8.5pt;
+            font-weight: 600;
+            color: #64748b;
+        }
+        .exp-list {
+            list-style-type: disc;
+            margin-left: 14px;
+            margin-top: 2px;
+        }
+        .exp-list li {
+            font-size: 8.8pt;
+            color: #334155;
+            margin-bottom: 2px;
+            text-align: justify;
+        }
+
+        /* Projects */
+        .project-item {
+            margin-bottom: 6px;
+        }
+        .project-name {
+            font-weight: 700;
+            font-size: 9pt;
+            color: #0f172a;
+        }
+        .project-stack {
+            font-weight: 600;
+            font-size: 8pt;
+            color: #2563eb;
+            background: #eff6ff;
+            padding: 1px 6px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-left: 6px;
+        }
+        .project-desc {
+            font-size: 8.6pt;
+            color: #334155;
+            margin-top: 1px;
+        }
+
+        /* Education & Certs Grid */
+        .edu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .edu-item-title {
+            font-weight: 700;
+            font-size: 9pt;
+            color: #0f172a;
+        }
+        .edu-item-sub {
+            font-size: 8.5pt;
+            color: #475569;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <h1 class="name">Moch Jaky Alfiyansyah</h1>
+            <div class="title">Full-Stack Web Developer | System & Database Specialist</div>
+            <div class="contact-info">
+                <span>Jakarta, Indonesia</span>
+                <span class="contact-separator">•</span>
+                <span>+62 812-8618-6263</span>
+                <span class="contact-separator">•</span>
+                <a href="mailto:jakialfiansah26@gmail.com">jakialfiansah26@gmail.com</a>
+                <span class="contact-separator">•</span>
+                <a href="https://linkedin.com/in/moch-jaky-alfiyansyah-80b0a8291" target="_blank">linkedin.com/in/moch-jaky-alfiyansyah</a>
+                <span class="contact-separator">•</span>
+                <a href="https://mochjaky.github.io" target="_blank">mochjaky.github.io</a>
+            </div>
+        </div>
+
+        <!-- PROFILE SUMMARY -->
+        <div class="section">
+            <div class="section-title">Ringkasan Profil</div>
+            <p class="summary-text">
+                Full-Stack Web Application Developer dengan pengalaman 3+ tahun dalam merancang dan memproduksi sistem berbasis web bisnis nyata (POS, HRIS, ERP, Document Workflow, dan Corporate Applications). Memiliki keahlian kuat dalam perancangan arsitektur database relasional (MySQL), sistem keamanan hak akses (RBAC), serta pengembangan aplikasi berbasis PHP (Native & Laravel), JavaScript, dan Bootstrap. Terbiasa mengelola siklus pengembangan perangkat lunak end-to-end dengan dukungan pengalaman manajerial operasional dalam analisis proses bisnis dan komunikasi tim.
+            </p>
+        </div>
+
+        <!-- TECHNICAL SKILLS -->
+        <div class="section">
+            <div class="section-title">Keahlian Teknis</div>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <span class="skill-label">Backend & Database:</span>
+                    <span class="skill-val">PHP (Native, Laravel), MySQL, Database Architecture</span>
+                </div>
+                <div class="skill-item">
+                    <span class="skill-label">Frontend & UI/UX:</span>
+                    <span class="skill-val">JavaScript (ES6+), HTML5, CSS3, Bootstrap 5, Figma</span>
+                </div>
+                <div class="skill-item">
+                    <span class="skill-label">System & Security:</span>
+                    <span class="skill-val">RBAC Access Control, Multi-level Approval, REST API</span>
+                </div>
+                <div class="skill-item">
+                    <span class="skill-label">Tools & Workflow:</span>
+                    <span class="skill-val">Git / GitHub, Firebase, VS Code, Postman, XAMPP</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- WORK EXPERIENCE -->
+        <div class="section">
+            <div class="section-title">Pengalaman Kerja</div>
+            
+            <div class="exp-item">
+                <div class="exp-header">
+                    <div>
+                        <span class="exp-role">Full-Stack Web Developer</span> — <span class="exp-company">PT Metal Al-Hasil</span>
+                    </div>
+                    <span class="exp-date">2026</span>
+                </div>
+                <ul class="exp-list">
+                    <li>Merancang dan mengembangkan Sistem POS (Point of Sale) terintegrasi engine kalkulator harga acuan logam LME (London Metal Exchange) secara real-time.</li>
+                    <li>Melakukan refactoring arsitektur database relasional dan antarmuka UI/UX responsif untuk optimasi manajemen transaksi serta pencatatan stok barang.</li>
+                </ul>
+            </div>
+
+            <div class="exp-item">
+                <div class="exp-header">
+                    <div>
+                        <span class="exp-role">Direktur Operasional</span> — <span class="exp-company">PT Jaka Satria Mandala Putra</span>
+                    </div>
+                    <span class="exp-date">2025</span>
+                </div>
+                <ul class="exp-list">
+                    <li>Mengelola sistem operasional perusahaan jasa keamanan, merumuskan SOP kerja, dan mengkoordinasikan penugasan personel untuk klien korporat (hotel, apartemen, residensial).</li>
+                    <li>Menangani penyusunan dokumen legal, laporan resmi, invoicing, serta evaluasi kualitas layanan secara berkala.</li>
+                </ul>
+            </div>
+
+            <div class="exp-item">
+                <div class="exp-header">
+                    <div>
+                        <span class="exp-role">Web Developer (Freelance)</span> — <span class="exp-company">Freelance</span>
+                    </div>
+                    <span class="exp-date">2022 – Sekarang</span>
+                </div>
+                <ul class="exp-list">
+                    <li>Mengembangkan berbagai aplikasi web kustom (sistem manajemen kos, e-commerce, portal CMS) berbasis PHP Native, MySQL, JavaScript, dan Bootstrap.</li>
+                    <li>Berkoordinasi langsung dengan klien dalam analisis kebutuhan teknis, perancangan antarmuka pengguna responsif, hingga fase implementasi.</li>
+                </ul>
+            </div>
+
+            <div class="exp-item">
+                <div class="exp-header">
+                    <div>
+                        <span class="exp-role">IT Consultant</span> — <span class="exp-company">PT Bina Baru Mandiri</span>
+                    </div>
+                    <span class="exp-date">2022</span>
+                </div>
+                <ul class="exp-list">
+                    <li>Mengembangkan dan memelihara aplikasi web internal perusahaan serta melakukan analisis kebutuhan efisiensi infrastruktur digital.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- KEY PROJECTS -->
+        <div class="section">
+            <div class="section-title">Pengalaman Project (Key Projects)</div>
+            
+            <div class="project-item">
+                <div>
+                    <span class="project-name">MetalHasil POS & LME Price Engine</span>
+                    <span class="project-stack">PHP Native, MySQL, LME Engine, Bootstrap 5</span>
+                </div>
+                <div class="project-desc">Aplikasi Point of Sale terintegrasi kalkulator harga acuan logam internasional real-time dengan manajemen stok dan laporan transaksi otomatis.</div>
+            </div>
+
+            <div class="project-item">
+                <div>
+                    <span class="project-name">HRIS & Employee Management System</span>
+                    <span class="project-stack">PHP, MySQL, RBAC Security, Dynamic Shift</span>
+                </div>
+                <div class="project-desc">Sistem pengelolaan SDM dengan fitur presensi, manajemen shift, tunjangan, penempatan lokasi gedung, dan pembatasan akses berbasis peran.</div>
+            </div>
+
+            <div class="project-item">
+                <div>
+                    <span class="project-name">Document Workflow & Multi-Level Approval System</span>
+                    <span class="project-stack">PHP, MySQL, Workflow Architecture, Audit Trail</span>
+                </div>
+                <div class="project-desc">Sistem aliran dokumen bisnis dengan otorisasi multi-level (level 1-3), digital signing logic, audit trail logging, dan sistem notifikasi otomatis.</div>
+            </div>
+        </div>
+
+        <!-- EDUCATION & CERTIFICATIONS -->
+        <div class="section">
+            <div class="section-title">Pendidikan & Sertifikasi</div>
+            <div class="edu-grid">
+                <div>
+                    <div class="edu-item-title">S1 Teknologi Informasi</div>
+                    <div class="edu-item-sub">Universitas Yarsi — Lulus 26 Oktober 2024</div>
+                </div>
+                <div>
+                    <div class="edu-item-title">Program Web Programming (Sertifikasi)</div>
+                    <div class="edu-item-sub">PPKD Jakarta Pusat — Juli – Desember 2025</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
